@@ -4,6 +4,8 @@ sudo: false
 script: mvn test
 notifications:
   slack: cbs-java:uZrfodvcQ0j2v9bcAncj3NNU
+    on_success: never
+    on_failure: always
   email:
     recipients:
       - yevhenii.deineka@gmail.com
@@ -13,5 +15,5 @@ notifications:
       - konnor999@gmail.com
       - ingwarflint@gmail.com
       - krasulyavova@ukr.net
-     on_success: never
-     on_failure: always
+    on_success: never
+    on_failure: always
