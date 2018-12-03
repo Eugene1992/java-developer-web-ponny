@@ -1,0 +1,17 @@
+language: java
+jdk: oraclejdk8
+sudo: false
+script: mvn test
+notifications:
+  email:
+    recipients:
+      - deyneko55@gmsil.com
+      - ya.serzhan@gmail.com
+      - iwankozlov1989@gmail.com
+      - konnor999@gmail.com
+      - ingwarflint@gmail.com
+      - krasulyavova@ukr.net
+    on_success: never
+    on_failure: always
+notifications:
+  slack: cbs-java:uZrfodvcQ0j2v9bcAncj3NNU
