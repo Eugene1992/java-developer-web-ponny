@@ -7,7 +7,6 @@ notifications:
     on_success: never
     on_failure: always
   email:
-    recipients:
       - yevhenii.deineka@gmail.com
       - deyneko55@gmail.com
       - ya.serzhan@gmail.com
