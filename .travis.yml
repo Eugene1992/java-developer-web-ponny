@@ -4,7 +4,6 @@ sudo: false
 script: mvn test
 notifications:
   email:
-    recipients:
       - yevhenii.deineka@gmail.com
       - deyneko55@gmail.com
       - ya.serzhan@gmail.com
