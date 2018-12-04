@@ -14,7 +14,7 @@ notifications:
       - krasulyavova@ukr.net
     on_failure: always
     on_success: change
-
+notification:
   slack: cbs-java:uZrfodvcQ0j2v9bcAncj3NNU
     on_failure: always
     on_success: change
