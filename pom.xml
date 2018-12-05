@@ -12,6 +12,7 @@
         <module>ivan</module>
         <module>ingwar</module>
         <module>yaroslav</module>
+        <module>Vadim</module>
         <module>jdbc</module>
     </modules>
     <packaging>pom</packaging>
