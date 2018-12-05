@@ -11,6 +11,7 @@
         <module>servlets</module>
         <module>ivan</module>
         <module>ingwar</module>
+        <module>yaroslav</module>
     </modules>
     <packaging>pom</packaging>
 
