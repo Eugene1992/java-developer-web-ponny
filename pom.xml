@@ -11,9 +11,7 @@
         <module>servlets</module>
         <module>ivan</module>
         <module>ingwar</module>
-        <module>yaroslav</module>
-        <module>Vadim</module>
-        <module>jdbc</module>
+        <module>volodimir</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -22,11 +20,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.2</version>
-        </dependency>
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901.jdbc4</version>
         </dependency>
     </dependencies>
 
