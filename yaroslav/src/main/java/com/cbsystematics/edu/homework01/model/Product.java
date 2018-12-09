@@ -12,13 +12,6 @@ public class Product {
     private String producer;
     private Integer price;
 
-    public Product(Integer id, String type, String name, String producer, Integer price) {
-        this.id = id;
-        this.type = type;
-        this.name = name;
-        this.producer = producer;
-        this.price = price;
-    }
 
     public Product(String type, String name, String producer, Integer price) {
         this.type = type;
