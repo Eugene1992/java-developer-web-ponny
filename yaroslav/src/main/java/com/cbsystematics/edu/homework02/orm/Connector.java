@@ -1,25 +1,31 @@
 package com.cbsystematics.edu.homework02.orm;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Connector {
 
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://ec2-54-83-8-246.compute-1.amazonaws.com:5432/d4gckf113qmjk1?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+    public static final String HEROKU_DB_PROPERTIES = "heroku_db.properties";
+    public static final String DRIVER = "driver";
+    public static final String URL = "url";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
 
-    //  Database credentials
-    static final String USER = "puvwmdlrwnpfav";
-    static final String PASSWORD = "bcac9988952843913948e5477982acfad1f1f6c9a9655fc401878a1627337778";
+
 
     private static Connection conn;
+    private static Properties configProperties;
+
+
 
     public static Connection getConnection() {
         connectToDatabase();
         return conn;
     }
+
 
     public static void close() {
         try {
@@ -29,16 +35,19 @@ public class Connector {
         }
     }
 
+
     private static void connectToDatabase() {
+        configProperties = new Properties();
         try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
+            configProperties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(HEROKU_DB_PROPERTIES));
+            Class.forName(configProperties.getProperty(DRIVER));
+            conn = DriverManager.getConnection(
+                    configProperties.getProperty(URL),
+                    configProperties.getProperty(USERNAME),
+                    configProperties.getProperty(PASSWORD)
+            );
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        try {
-            conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 }
