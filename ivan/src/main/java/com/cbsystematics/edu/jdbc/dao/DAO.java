@@ -1,15 +1,18 @@
 package com.cbsystematics.edu.jdbc.dao;
 
+import com.cbsystematics.edu.jdbc.entities.AbstractEntity;
+
+import java.sql.SQLException;
 import java.util.List;
 
-public interface DAO<T> {
-    T getEntity(Integer entityId);
+public interface DAO<T extends AbstractEntity> {
+    T get(Integer id) throws SQLException;
 
-    T createEntity(T entity);
+    T create(T entity);
 
-    T updateEntity(T entity);
+    T update(T entity);
 
-    void deleteEntity(Integer entityId);
+    void delete(Integer id);
 
-    List<T> getAllEntities();
+    List<T> getAll();
 }
