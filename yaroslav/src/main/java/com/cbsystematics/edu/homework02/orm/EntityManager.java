@@ -16,9 +16,9 @@ public class EntityManager {
             Statement statement = Connector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                T t = clazz.newInstance();
-                Methods.setAllValuesToFields(t, resultSet);
-                list.add(t);
+                T obj = clazz.newInstance();
+                Methods.setAllValuesToFields(obj, resultSet);
+                list.add(obj);
             }
             resultSet.close();
             statement.close();
@@ -38,6 +38,11 @@ public class EntityManager {
             sql = Methods.getSqlQueryForCreate(t);
             statement = Connector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys.next();
+            // TODO: 10.12.2018 add id propagate logic
+            Object id = generatedKeys.getObject("id");
             statement.close();
             Connector.close();
         } catch (Exception e) {

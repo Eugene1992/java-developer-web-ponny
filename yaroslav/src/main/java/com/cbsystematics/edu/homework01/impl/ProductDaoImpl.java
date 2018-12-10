@@ -48,12 +48,13 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product updateElement(Product product) throws SQLException {
-        String sql = "UPDATE z_products SET type = ?, name = ?, producer = ?, price = ? WHERE id = " + product.getId();
+        String sql = "UPDATE z_products SET type = ?, name = ?, producer = ?, price = ? WHERE id = ?";
         PreparedStatement statement = Connector.getConnection().prepareStatement(sql);
         statement.setString(1, product.getType());
         statement.setString(2, product.getName());
         statement.setString(3, product.getProducer());
         statement.setInt(4, product.getPrice());
+        statement.setInt(5, product.getId());
         statement.executeUpdate();
         return product;
     }

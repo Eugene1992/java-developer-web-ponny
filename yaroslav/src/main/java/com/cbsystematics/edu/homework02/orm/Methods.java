@@ -5,10 +5,14 @@ import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Methods {
 
+
+    public static final String DELETE_QUERY_TEMPLATE = "DELETE FROM %s WHERE %s = %s";
+    public static final String INSERT_QUERY_TEMPLATE = "INSERT INTO %s(%s) VALUES(%s)";
 
     /**---------------------------------------------GetAll------------------------------------------/
 
@@ -27,12 +31,11 @@ public class Methods {
      * Метод, который записывает все значения полученые из ResultSet в поля обьекта
      */
     public static <T> void setAllValuesToFields(T t, ResultSet resultSet) throws SQLException, IllegalAccessException {
-        List<Field> fields = new ArrayList<>();
-        Methods.addArrayToList(fields, t.getClass().getDeclaredFields());
+        List<Field> fields = Arrays.asList(t.getClass().getDeclaredFields());
         Methods.addArrayToList(fields, t.getClass().getSuperclass().getDeclaredFields());
         for (Field field : fields) {
-            Object value = Methods.getColumnValue(field, resultSet);
-            field.set(t, value);
+            Object columnValue = Methods.getColumnValue(field, resultSet);
+            field.set(t, columnValue);
         }
     }
 
@@ -62,7 +65,7 @@ public class Methods {
             counter--;
             String fieldName = Methods.getColumnNameFromAnnotation(field);
             result += fieldName;
-            if (counter != 0) {
+            if (counter != 0) { // TODO: 10.12.2018 https://www.mscharhag.com/java/java-8-string-join
                 result += ", ";
             } else {
                 result += ")";
@@ -135,6 +138,8 @@ public class Methods {
         String sql = "DELETE FROM " + getTableName(t)
                 + "WHERE " + getPrimaryIdField(t).getName()
                 + " = " + id;
+
+        String.format(DELETE_QUERY_TEMPLATE, getTableName(t), getPrimaryIdField(t).getName(), id);
         return sql;
     }
 
@@ -170,7 +175,7 @@ public class Methods {
     public static <T> Object getFieldValue(Field field, T t) throws IllegalAccessException {
         field.setAccessible(true);
         Object value = field.get(t);
-        if (field.getType().getSimpleName().equals("String")) {
+        if (field.getType().equals(String.class)) {
             value = "'" + value + "'";
         }
         return value;
@@ -183,8 +188,7 @@ public class Methods {
     public static Object getColumnValue(Field field, ResultSet resultSet) throws SQLException {
         field.setAccessible(true);
         String columnName = getColumnNameFromAnnotation(field);
-        Object value = resultSet.getObject(columnName);
-        return value;
+        return resultSet.getObject(columnName);
     }
 
 
@@ -195,7 +199,7 @@ public class Methods {
         String result = "";
         if (t.getClass().isAnnotationPresent(Entity.class)) {
             Annotation annotation = t.getClass().getAnnotation(Table.class);
-            String tableName = ((Table) annotation).name();
+            String tableName = ((Table) annotation).name(); // TODO: 10.12.2018 if @Table not specified name?
             result += tableName + " ";
         } else {
             return null;

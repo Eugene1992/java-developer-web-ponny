@@ -1,5 +1,7 @@
 package com.cbs.edu.jdbc.dao;
 
+import java.util.List;
+
 public class UserDAOImpl implements UserDAO {
     @Override
     public User getUser(Integer id) {
@@ -19,5 +21,15 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void deleteUser(Integer id) {
 
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public List<User> getUsersBySalaryInterval(Integer from, Integer to) {
+        return null;
     }
 }
