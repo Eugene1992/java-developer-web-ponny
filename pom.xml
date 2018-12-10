@@ -14,6 +14,7 @@
         <module>yaroslav</module>
         <module>Vadim</module>
         <module>jdbc</module>
+        <module>jpa</module>
     </modules>
     <packaging>pom</packaging>
 
