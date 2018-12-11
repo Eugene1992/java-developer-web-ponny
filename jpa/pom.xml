@@ -9,7 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>vadim</artifactId>
+    <artifactId>jpa</artifactId>
 
+    <properties>
+        <hibernate.version>5.1.0.Final</hibernate.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+    </dependencies>
 </project>

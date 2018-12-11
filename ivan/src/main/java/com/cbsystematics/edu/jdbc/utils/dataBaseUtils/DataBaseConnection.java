@@ -1,35 +1,40 @@
 package com.cbsystematics.edu.jdbc.utils.dataBaseUtils;
 
-import com.cbsystematics.edu.jdbc.properties.DataBaseProperties;
-import com.cbsystematics.edu.jdbc.utils.Logs;
-
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DataBaseConnection {
 
-    static Connection currentConnection;
-    static PreparedStatement preparedStatement;
+    private static Connection connection;
+    private static final String
+            HEROKU_DB_PROPERTIES_FILE_PATH = "database/heroku_database_connection.properties",
+            DRIVER = "driver",
+            URL = "url",
+            USER = "username",
+            PASSWORD = "password";
 
     static {
-        Connection conn;
+        Properties properties = new Properties();
         try {
-            //Register JDBC driver
-            Class.forName(DataBaseProperties.JDBC_DRIVER.getPropertyValue());
-
-            //Open a connection
-            System.out.println(Logs.DATA_BASE_CONNECTION.getLogText());
-
-            conn = DriverManager.getConnection(DataBaseProperties.DATA_BASE_URL.getPropertyValue(),
-                    DataBaseProperties.USER.getPropertyValue(),
-                    DataBaseProperties.PASSWORD.getPropertyValue());
-
-            currentConnection = conn;
-        } catch (ClassNotFoundException | SQLException e) {
+            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(HEROKU_DB_PROPERTIES_FILE_PATH));
+            Class.forName(properties.getProperty(DRIVER));
+            connection = DriverManager.getConnection(
+                    properties.getProperty(URL),
+                    properties.getProperty(USER),
+                    properties.getProperty(PASSWORD));
+        } catch (IOException | SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
+    private DataBaseConnection() {
     }
 
 
