@@ -1,7 +1,6 @@
 package com.cbsystematics.edu.jdbc;
 
 import com.cbsystematics.edu.jdbc.entities.User;
-import com.cbsystematics.edu.jdbc.utils.reflectionUtils.objectUtils.ObjectParser;
 
 public class Test {
     public static void main(String[] args) throws NoSuchFieldException {
