@@ -1,0 +1,17 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="com.cbs.edu.hibernate">
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.user" value="ooytnjvmtqeubm" />
+            <property name="javax.persistence.jdbc.password" value="a0f09fb79c301eb9f2110e6011cdf5a8c4d7c3db40d1c4b3e6630ae1bb1b4b45" />
+
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-54-75-231-3.eu-west-1.compute.amazonaws.com:5432/d2ho8agt7vhqtq?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>
