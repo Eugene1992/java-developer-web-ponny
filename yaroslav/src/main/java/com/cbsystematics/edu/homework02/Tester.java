@@ -4,7 +4,7 @@ package com.cbsystematics.edu.homework02;
 import com.cbsystematics.edu.homework02.entities.Product;
 import com.cbsystematics.edu.homework02.entities.User;
 import com.cbsystematics.edu.homework02.orm.EntityManager;
-import com.cbsystematics.edu.homework02.orm.Methods;
+import com.cbsystematics.edu.homework02.orm.EntityManagerService;
 
 import java.util.List;
 
@@ -17,17 +17,17 @@ public class Tester {
         /**1) getAll test*/
         System.out.println("Список всех пользователей");
         List<User> userList = entityManager.getAll(User.class);
-        Methods.outputList(userList);
+        EntityManagerService.outputList(userList);
 
         System.out.println("\nСписок всех продуктов");
         List<Product> productList = entityManager.getAll(Product.class);
-        Methods.outputList(productList);
+        EntityManagerService.outputList(productList);
 
 
 
         /**2) create test*/
         //System.out.println("\n\n\n");
-        //User user = new User("Данил", "Данин", "daaaanil", "ddddcweic", "danil@meta.ua");
+        //User user = new User("Дан ил", "Данин", "daaaanil", "ddddcweic", "danil@meta.ua");
         //System.out.println("Добавление в бд пользователя - " + user);
         //entityManager.create(user);
 
@@ -57,7 +57,7 @@ public class Tester {
 
         /**4) delete test*/
         //System.out.println("\n\n\n");
-        //Integer idToDelete = 1;
+        //Integer idToDelete = 19;
         //System.out.println("Удаляем пользователя по id = " + idToDelete);
         //entityManager.delete(idToDelete, User.class);
 

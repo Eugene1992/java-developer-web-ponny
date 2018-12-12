@@ -12,12 +12,13 @@ public class EntityManager {
     public <T> List<T> getAll(Class<T> clazz) {
         List<T> list = new ArrayList<>();
         try {
-            String sql = Methods.getSqlQueryGetAll(clazz);
+            String sql = EntityManagerService.getSqlQueryGetAll(clazz);
+            System.out.println(sql);
             Statement statement = Connector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 T obj = clazz.newInstance();
-                Methods.setAllValuesToFields(obj, resultSet);
+                EntityManagerService.setAllValuesToFields(obj, resultSet);
                 list.add(obj);
             }
             resultSet.close();
@@ -35,14 +36,18 @@ public class EntityManager {
         String sql;
         PreparedStatement statement;
         try {
-            sql = Methods.getSqlQueryForCreate(t);
+            sql = EntityManagerService.getSqlQueryForCreate(t);
+            System.out.println(sql);
             statement = Connector.getConnection().prepareStatement(sql);
-            statement.executeUpdate();
-
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            generatedKeys.next();
-            // TODO: 10.12.2018 add id propagate logic
-            Object id = generatedKeys.getObject("id");
+            statement.execute();
+            //statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+            //ResultSet resultSet = statement.getGeneratedKeys();
+            //if(resultSet.next()) {
+            //    Object id = resultSet.getObject(1);
+            //    Field idField = EntityManagerService.getPrimaryIdField(t);
+            //    System.out.println(id);
+            //    idField.set(t, id);
+            //}
             statement.close();
             Connector.close();
         } catch (Exception e) {
@@ -52,10 +57,11 @@ public class EntityManager {
     }
 
     public <T> T update(T t) {
-        String sql = null;
+        String sql;
         PreparedStatement statement;
         try {
-            sql = Methods.getSqlQueryForUpdate(t);
+            sql = EntityManagerService.getSqlQueryForUpdate(t);
+            System.out.println(sql);
             statement = Connector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
             statement.close();
@@ -64,14 +70,13 @@ public class EntityManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(sql);
         return t;
     }
 
     public <T, I> void delete(I id, Class<T> clazz) {
         String sql;
         try {
-            sql = Methods.getSqlQueryForDelete(id, clazz);
+            sql = EntityManagerService.getSqlQueryForDelete(id, clazz);
             System.out.println(sql);
             PreparedStatement statement = Connector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
@@ -85,12 +90,13 @@ public class EntityManager {
     public <T, I> T get(I id, Class<T> clazz) {
         T t = null;
         try {
-            String sql = Methods.getSqlQueryForGet(id, clazz);
+            String sql = EntityManagerService.getSqlQueryForGet(id, clazz);
+            System.out.println(sql);
             Statement statement = Connector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             t = clazz.newInstance();
             while (resultSet.next()) {
-                Methods.setAllValuesToFields(t, resultSet);
+                EntityManagerService.setAllValuesToFields(t, resultSet);
             }
             resultSet.close();
             statement.close();

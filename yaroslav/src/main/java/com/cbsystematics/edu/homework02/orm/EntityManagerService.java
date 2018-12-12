@@ -6,24 +6,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Methods {
+public class EntityManagerService {
 
 
-    public static final String DELETE_QUERY_TEMPLATE = "DELETE FROM %s WHERE %s = %s";
-    public static final String INSERT_QUERY_TEMPLATE = "INSERT INTO %s(%s) VALUES(%s)";
+    private static final String DELETE_QUERY_TEMPLATE = "DELETE FROM %s WHERE %s = %s";
+    private static final String SELECT_ALL_QUERY_TEMPLATE = "SELECT * FROM %s";
+    private static final String SELECT_QUERY_TEMPLATE = "SELECT * FROM %s WHERE %s = %s";
+    private static final String INSERT_QUERY_TEMPLATE = "INSERT INTO %s(%s) VALUES(%s)";
+    private static final String UPDATE_QUERY_TEMPLATE = "UPDATE %s SET %s WHERE %s = %s";
+
+
 
     /**---------------------------------------------GetAll------------------------------------------/
-
-    /**
+     /**
      * Метод, для создания универсального sql запроса для метода getAll
      */
     public static <T> String getSqlQueryGetAll(Class<T> clazz) throws IllegalAccessException, InstantiationException {
-        String sql = "SELECT * FROM ";
         T t =  clazz.newInstance();
-        sql += getTableName(t);
-        return sql;
+        return String.format(SELECT_ALL_QUERY_TEMPLATE, getTableName(t));
     }
 
 
@@ -31,10 +35,11 @@ public class Methods {
      * Метод, который записывает все значения полученые из ResultSet в поля обьекта
      */
     public static <T> void setAllValuesToFields(T t, ResultSet resultSet) throws SQLException, IllegalAccessException {
-        List<Field> fields = Arrays.asList(t.getClass().getDeclaredFields());
-        Methods.addArrayToList(fields, t.getClass().getSuperclass().getDeclaredFields());
+        List<Field> fields = new ArrayList<>();
+        Collections.addAll(fields, t.getClass().getDeclaredFields());
+        Collections.addAll(fields, t.getClass().getSuperclass().getDeclaredFields());
         for (Field field : fields) {
-            Object columnValue = Methods.getColumnValue(field, resultSet);
+            Object columnValue = getColumnValue(field, resultSet);
             field.set(t, columnValue);
         }
     }
@@ -44,57 +49,37 @@ public class Methods {
 
 
     /**--------------------------------------------Create--------------------------------------------/
-
-    /**
+     /**
      * Метод, для создания универсального sql запроса для метода create()
      */
-    public static <T> String getSqlQueryForCreate(T t) throws IllegalAccessException {
-        String sql = "INSERT INTO ";
-        sql += getTableName(t) + getColumnNamesInQuery(t) + getColumnValuesInQuery(t);
-        return sql;
+    public static <T> String getSqlQueryForCreate(T t) {
+        return String.format(INSERT_QUERY_TEMPLATE, getTableName(t), getColumnNamesInQuery(t), getColumnValuesInQuery(t));
     }
 
     /**
      * Метод, который заносит в запрос на создание элемента имена колонок таблицы
      */
-    public static <T> String getColumnNamesInQuery(T t) {
+    private static <T> String getColumnNamesInQuery(T t) {
         Class clazz = t.getClass();
-        String result = "(";
-        int counter = clazz.getDeclaredFields().length;
-        for (Field field : clazz.getDeclaredFields()) {
-            counter--;
-            String fieldName = Methods.getColumnNameFromAnnotation(field);
-            result += fieldName;
-            if (counter != 0) { // TODO: 10.12.2018 https://www.mscharhag.com/java/java-8-string-join
-                result += ", ";
-            } else {
-                result += ")";
-            }
-        }
-        return result;
+        return Arrays.stream(clazz.getDeclaredFields())
+                .map(EntityManagerService::getColumnNameFromAnnotation)
+                .collect(Collectors.joining(", "));
     }
+
 
     /**
      * Метод, который заносит в запрос на создание элемента значение полей элемента
      * (Заполняет VALUES в запросе)
      */
-    public static <T> String getColumnValuesInQuery(T t) throws IllegalAccessException {
+    private static <T> String getColumnValuesInQuery(T t) {
         Class clazz = t.getClass();
-        String result = " VALUES(";
-        int counter = clazz.getDeclaredFields().length;
-        for (Field field : clazz.getDeclaredFields()) {
-            counter--;
-            result += getFieldValue(field, t);
-            if (counter != 0) {
-                result += ", ";
-            } else {
-                result += ")";
-            }
-        }
-        return result;
+        List<Field> fields = Arrays.asList(clazz.getDeclaredFields());
+        List<Object> fieldValues = new ArrayList<>();
+        fields.forEach(field -> fieldValues.add(getFieldValue(field, t)));
+        return fieldValues.stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
     }
-
-
 
 
 
@@ -104,23 +89,15 @@ public class Methods {
     /**
      * Метод, для создания универсального sql запроса для метода update()
      */
-    public static <T> String getSqlQueryForUpdate(T t) throws IllegalAccessException {
-        String sql = "UPDATE " + getTableName(t) + " SET ";
-        int counter = t.getClass().getDeclaredFields().length;
-        for (Field field : t.getClass().getDeclaredFields()) {
-            counter--;
-            String columnName = getColumnNameFromAnnotation(field);
-            Object columnValue = getFieldValue(field, t);
-            sql += columnName + " = " + columnValue;
-            if (counter != 0) {
-                sql += ", ";
-            } else {
-                sql += " WHERE ";
-            }
-        }
-        Field primaryId = getPrimaryIdField(t);
-        sql += primaryId.getName() + " = " + getFieldValue(primaryId, t);
-        return sql;
+    public static <T> String getSqlQueryForUpdate(T t) {
+        List<Field> fields = Arrays.asList(t.getClass().getDeclaredFields());
+        List<String> fieldNamesAndValues = new ArrayList<>();
+        fields.forEach(field -> fieldNamesAndValues.add(getColumnNameFromAnnotation(field) + " = " + getFieldValue(field, t)));
+        String sqlSetPart = fieldNamesAndValues.stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
+        Field idField = getPrimaryIdField(t);
+        return String.format(UPDATE_QUERY_TEMPLATE, getTableName(t), sqlSetPart, idField.getName(), getFieldValue(idField, t));
     }
 
 
@@ -135,12 +112,7 @@ public class Methods {
      */
     public static <T, I> String getSqlQueryForDelete(I id, Class<T> clazz) throws IllegalAccessException, InstantiationException {
         T t = clazz.newInstance();
-        String sql = "DELETE FROM " + getTableName(t)
-                + "WHERE " + getPrimaryIdField(t).getName()
-                + " = " + id;
-
-        String.format(DELETE_QUERY_TEMPLATE, getTableName(t), getPrimaryIdField(t).getName(), id);
-        return sql;
+        return String.format(DELETE_QUERY_TEMPLATE, getTableName(t), getPrimaryIdField(t).getName(), id);
     }
 
 
@@ -155,10 +127,7 @@ public class Methods {
      */
     public static <T, I> String getSqlQueryForGet(I id, Class<T> clazz) throws IllegalAccessException, InstantiationException {
         T t = clazz.newInstance();
-        String sql = "SELECT * FROM " + getTableName(t)
-                + " WHERE " + getPrimaryIdField(t).getName()
-                + " = " + id;
-        return sql;
+        return String.format(SELECT_QUERY_TEMPLATE, getTableName(t), getPrimaryIdField(t).getName(), id);
     }
 
 
@@ -172,11 +141,16 @@ public class Methods {
      * Метод, который заносит значение поля строчного типа в кавычки, а значение всех остальных типов
      * просто преобразовывает в строку
      */
-    public static <T> Object getFieldValue(Field field, T t) throws IllegalAccessException {
+    public static <T> Object getFieldValue(Field field, T t) {
         field.setAccessible(true);
-        Object value = field.get(t);
-        if (field.getType().equals(String.class)) {
-            value = "'" + value + "'";
+        Object value = null;
+        try {
+            value = field.get(t);
+            if (field.getType().equals(String.class)) {
+                value = "'" + value + "'";
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
         return value;
     }
@@ -195,16 +169,20 @@ public class Methods {
     /**
      * Метод, который возвращает имя таблицы
      */
-    public static <T> String getTableName(T t) {
-        String result = "";
+    private static <T> String getTableName(T t) {
         if (t.getClass().isAnnotationPresent(Entity.class)) {
+            String tableName;
             Annotation annotation = t.getClass().getAnnotation(Table.class);
-            String tableName = ((Table) annotation).name(); // TODO: 10.12.2018 if @Table not specified name?
-            result += tableName + " ";
-        } else {
-            return null;
+            if (((Table) annotation).name().equals("")) {
+                tableName = t.getClass().getSimpleName().toLowerCase();
+            } else {
+                tableName = ((Table) annotation).name();
+            }
+            return tableName;
         }
-        return result;
+        Exception e = new Exception("Клас " + t.getClass().getName() + " не имеет аннотации " + Table.class); /**Todo ?????*/
+        e.printStackTrace();
+        return null;
     }
 
 
@@ -212,7 +190,7 @@ public class Methods {
      * Метод, для получения из аннотации Column имени поля(колонки в таблице)
      * Если анотации нет то возвращаеться имя поля.
      */
-    public static String getColumnNameFromAnnotation(Field field) {
+    private static String getColumnNameFromAnnotation(Field field) {
         field.setAccessible(true);
         String columnName;
         if (field.isAnnotationPresent(Column.class)) {
@@ -230,24 +208,16 @@ public class Methods {
      */
     public static <T> Field getPrimaryIdField(T t) {
         List<Field> fields = new ArrayList<>();
-        addArrayToList(fields, t.getClass().getDeclaredFields());
-        addArrayToList(fields, t.getClass().getSuperclass().getDeclaredFields());
+        Collections.addAll(fields, t.getClass().getDeclaredFields());
+        Collections.addAll(fields, t.getClass().getSuperclass().getDeclaredFields());
         for (Field field : fields) {
-            if (field.isAnnotationPresent(PrimaryId.class)) {
+            if (field.isAnnotationPresent(Id.class)) {
                 return field;
             }
         }
+        Exception e = new Exception("Класс " + t.getClass().getName() + "  его родители не имеют аннотации  " + Id.class); /**Todo ?????*/
+        e.printStackTrace();
         return null;
-    }
-
-
-    /**
-     * Метод для добавление элементов масива в список
-     */
-    public static <E> void addArrayToList(List<E> list, E[] array) {
-        for (E e : array) {
-            list.add(e);
-        }
     }
 
 
