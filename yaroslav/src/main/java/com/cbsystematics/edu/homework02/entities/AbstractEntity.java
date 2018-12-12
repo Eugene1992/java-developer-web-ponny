@@ -1,7 +1,7 @@
 package com.cbsystematics.edu.homework02.entities;
 
 
-import com.cbsystematics.edu.homework02.orm.PrimaryId;
+import com.cbsystematics.edu.homework02.orm.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class AbstractEntity {
 
-    @PrimaryId(name = "id")
+    @Id(name = "id")
     protected Integer id;
 }
