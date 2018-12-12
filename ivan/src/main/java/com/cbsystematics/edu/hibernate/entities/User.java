@@ -1,6 +1,5 @@
 package com.cbsystematics.edu.hibernate.entities;
 
-import com.cbsystematics.edu.jdbc.annotations.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

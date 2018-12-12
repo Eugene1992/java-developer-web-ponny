@@ -15,7 +15,7 @@ public class Test {
 
         transaction.begin();
 
-        User user = new User(1,"new_user", "qwerty");
+        User user = new User(1, "new_user", "qwerty");
         entityManager.persist(user);
 
         transaction.commit();
