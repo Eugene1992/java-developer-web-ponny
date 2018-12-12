@@ -26,4 +26,15 @@ public class Product extends AbstractEntity {
         this.price = price;
     }
 
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id = " + id
+                + ", type = " + type
+                + ", name = " + name
+                + ", producer = " + producer
+                + ", price = " + price
+                + '}';
+    }
 }
