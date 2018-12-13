@@ -96,7 +96,7 @@ public class EntityManagerService {
         String sqlSetPart = fieldNamesAndValues.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(", "));
-        Field idField = getPrimaryIdField(t);
+        Field idField = getIdField(t);
         return String.format(UPDATE_QUERY_TEMPLATE, getTableName(t), sqlSetPart, idField.getName(), getFieldValue(idField, t));
     }
 
@@ -112,7 +112,7 @@ public class EntityManagerService {
      */
     public static <T, I> String getSqlQueryForDelete(I id, Class<T> clazz) throws IllegalAccessException, InstantiationException {
         T t = clazz.newInstance();
-        return String.format(DELETE_QUERY_TEMPLATE, getTableName(t), getPrimaryIdField(t).getName(), id);
+        return String.format(DELETE_QUERY_TEMPLATE, getTableName(t), getIdField(t).getName(), id);
     }
 
 
@@ -127,7 +127,7 @@ public class EntityManagerService {
      */
     public static <T, I> String getSqlQueryForGet(I id, Class<T> clazz) throws IllegalAccessException, InstantiationException {
         T t = clazz.newInstance();
-        return String.format(SELECT_QUERY_TEMPLATE, getTableName(t), getPrimaryIdField(t).getName(), id);
+        return String.format(SELECT_QUERY_TEMPLATE, getTableName(t), getIdField(t).getName(), id);
     }
 
 
@@ -171,18 +171,15 @@ public class EntityManagerService {
      */
     private static <T> String getTableName(T t) {
         if (t.getClass().isAnnotationPresent(Entity.class)) {
-            String tableName;
             Annotation annotation = t.getClass().getAnnotation(Table.class);
             if (((Table) annotation).name().equals("")) {
-                tableName = t.getClass().getSimpleName().toLowerCase();
+                return t.getClass().getSimpleName().toLowerCase();
             } else {
-                tableName = ((Table) annotation).name();
+                return ((Table) annotation).name();
             }
-            return tableName;
+        } else {
+            throw new IllegalMonitorStateException("Class " + t.getClass().getName() + " don't have annotation @Entity");
         }
-        Exception e = new Exception("Клас " + t.getClass().getName() + " не имеет аннотации " + Table.class); /**Todo ?????*/
-        e.printStackTrace();
-        return null;
     }
 
 
@@ -206,7 +203,7 @@ public class EntityManagerService {
     /**
      * Метод, который получает primary id из класа или его родителя AbstractEntity
      */
-    public static <T> Field getPrimaryIdField(T t) {
+    public static <T> Field getIdField(T t) {
         List<Field> fields = new ArrayList<>();
         Collections.addAll(fields, t.getClass().getDeclaredFields());
         Collections.addAll(fields, t.getClass().getSuperclass().getDeclaredFields());
@@ -215,9 +212,7 @@ public class EntityManagerService {
                 return field;
             }
         }
-        Exception e = new Exception("Класс " + t.getClass().getName() + "  его родители не имеют аннотации  " + Id.class); /**Todo ?????*/
-        e.printStackTrace();
-        return null;
+        throw new IllegalMonitorStateException("Class " + t.getClass().getName() + " and his parent classes don't have field with annotation @Id");
     }
 
 
