@@ -1,5 +1,8 @@
 package com.cbs.edu.jpa.examples.relationships;
 
+import com.cbs.edu.jpa.examples.relationships.entity.HomePet;
+import com.cbs.edu.jpa.examples.relationships.entity.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;

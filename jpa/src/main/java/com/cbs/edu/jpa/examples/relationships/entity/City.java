@@ -1,4 +1,4 @@
-package com.cbs.edu.jpa.examples.relationships;
+package com.cbs.edu.jpa.examples.relationships.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

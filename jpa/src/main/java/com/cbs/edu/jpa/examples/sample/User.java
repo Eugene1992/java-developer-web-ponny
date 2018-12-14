@@ -1,4 +1,4 @@
-package com.cbs.edu.jpa.examples.entity;
+package com.cbs.edu.jpa.examples.sample;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

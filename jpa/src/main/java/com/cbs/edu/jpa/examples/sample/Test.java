@@ -1,4 +1,6 @@
-package com.cbs.edu.jpa.examples.relationships;
+package com.cbs.edu.jpa.examples.sample;
+
+import com.cbs.edu.jpa.examples.relationships.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,7 +15,7 @@ public class Test {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        User user = new User();
+        com.cbs.edu.jpa.examples.relationships.entity.User user = new User();
         user.setUsername("root");
         user.setPassword("root");
 
