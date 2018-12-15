@@ -13,7 +13,6 @@ public class EntityManager {
         List<T> list = new ArrayList<>();
         try {
             String sql = EntityManagerService.getSqlQueryGetAll(clazz);
-            System.out.println(sql);
             Statement statement = Connector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
@@ -37,7 +36,6 @@ public class EntityManager {
         PreparedStatement statement;
         try {
             sql = EntityManagerService.getSqlQueryForCreate(t);
-            System.out.println(sql);
             statement = Connector.getConnection().prepareStatement(sql);
             statement.execute();
             //statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
@@ -61,7 +59,6 @@ public class EntityManager {
         PreparedStatement statement;
         try {
             sql = EntityManagerService.getSqlQueryForUpdate(t);
-            System.out.println(sql);
             statement = Connector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
             statement.close();
@@ -77,7 +74,6 @@ public class EntityManager {
         String sql;
         try {
             sql = EntityManagerService.getSqlQueryForDelete(id, clazz);
-            System.out.println(sql);
             PreparedStatement statement = Connector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
             statement.close();
@@ -91,7 +87,6 @@ public class EntityManager {
         T t = null;
         try {
             String sql = EntityManagerService.getSqlQueryForGet(id, clazz);
-            System.out.println(sql);
             Statement statement = Connector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             t = clazz.newInstance();
