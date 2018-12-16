@@ -33,6 +33,12 @@ public class TesterChooser {
         if (realizationVariant.equals(JPA_CRITERIA)) {
             studentDAO = new CriteriaStudentDAOImpl();
         }
+        if (realizationVariant.equals(JPA_METHODS)) {
+            studentDAO = new JPAMethodsStudentDAOImpl();
+        }
+        if (realizationVariant.equals(HIBERNATE_SESSION)) {
+            studentDAO = new HibernateStudentDAOImpl();
+        }
     }
 
     public void run(){
@@ -62,14 +68,15 @@ public class TesterChooser {
 
         /**DELETE*/
         System.out.println("\n\n\nDELETE");
-        studentDAO.delete(3);
+        int id = 34;
+        studentDAO.delete(id);
         students = studentDAO.getAll();
         students.forEach(System.out::println);
 
 
         /**GET_NAME_BY_ID*/
         System.out.println("\n\n\nGET_NAME_BY_ID");
-        int id = 1;
+        id = 1;
         System.out.println("Name by id = " + id + ": " + studentDAO.getNameById(id));
 
 
