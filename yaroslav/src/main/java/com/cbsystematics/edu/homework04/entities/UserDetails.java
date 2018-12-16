@@ -1,19 +1,19 @@
 package com.cbsystematics.edu.homework04.entities;
 
-import com.cbsystematics.edu.homework02.orm.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
+//import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+//import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "user_details")
+//@Entity
+//@Table(name = "user_details")
 public class UserDetails extends AbstractEntity {
 
     @Column(name = "first_name")

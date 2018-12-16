@@ -124,5 +124,10 @@ public class JDBCStudentDAOImpl implements StudentDAO {
         }
         return students;
     }
+
+    @Override
+    public void close() {
+
+    }
 }
 

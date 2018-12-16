@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @com.cbsystematics.edu.homework02.orm.Table(name = "students_tiny_hibernate")
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "students")
+@Table(name = "students_jpa_sql")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -15,4 +15,9 @@ public interface DAO<T extends AbstractEntity> {
     void delete(Integer id);
 
     List<T> getAll();
+
+
+
+    /**ДЛя возможности закрывать все реализации с JPA*/
+    void close();
 }

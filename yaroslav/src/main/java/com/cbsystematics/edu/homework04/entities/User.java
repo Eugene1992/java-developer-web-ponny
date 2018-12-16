@@ -13,8 +13,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "users")
+//@Entity
+//@Table(name = "users")
 public class User extends AbstractEntity {
 
     private String username;

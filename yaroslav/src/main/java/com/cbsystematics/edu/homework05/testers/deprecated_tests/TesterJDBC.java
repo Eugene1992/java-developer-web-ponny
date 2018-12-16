@@ -1,15 +1,16 @@
-package com.cbsystematics.edu.homework05.testers;
+package com.cbsystematics.edu.homework05.testers.deprecated_tests;
 
 import com.cbsystematics.edu.homework05.dao.StudentDAO;
-import com.cbsystematics.edu.homework05.dao.impl.TinyHibernateStudentDAOImpl;
+import com.cbsystematics.edu.homework05.dao.impl.JDBCStudentDAOImpl;
 import com.cbsystematics.edu.homework05.entities.Student;
 import com.cbsystematics.edu.homework05.utils.RandomService;
 
 import java.util.List;
 
-public class TesterTinyHibernate {
+@Deprecated
+public class TesterJDBC {
     public static void main(String[] args) {
-        StudentDAO studentDAO = new TinyHibernateStudentDAOImpl();
+        StudentDAO studentDAO = new JDBCStudentDAOImpl();
 
 
         /**CREATE*/
@@ -45,6 +46,5 @@ public class TesterTinyHibernate {
         System.out.println("\n\n\nGET_NAME_BY_ID");
         int id = 1;
         System.out.println("Name by id = " + id + ": " + studentDAO.getNameById(id));
-
     }
 }

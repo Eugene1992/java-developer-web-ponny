@@ -12,8 +12,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "discounts")
+//@Entity
+//@Table(name = "discounts")
 public class Discount extends AbstractEntity {
 
     private String name;

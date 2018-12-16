@@ -13,8 +13,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "orders")
+//@Entity
+//@Table(name = "orders")
 public class Order extends AbstractEntity {
 
     private String comment;

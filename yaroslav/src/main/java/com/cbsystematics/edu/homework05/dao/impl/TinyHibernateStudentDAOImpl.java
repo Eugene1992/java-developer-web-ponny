@@ -60,4 +60,9 @@ public class TinyHibernateStudentDAOImpl implements StudentDAO {
         List<Student> students = entityManager.getAll(Student.class);
         return students;
     }
+
+
+    public void close() {
+
+    }
 }

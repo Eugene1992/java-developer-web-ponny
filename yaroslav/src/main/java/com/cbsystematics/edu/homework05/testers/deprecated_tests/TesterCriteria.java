@@ -1,42 +1,17 @@
-package com.cbsystematics.edu.homework05.testers;
-
-import static com.cbsystematics.edu.homework05.testers.RealizationVariants.*;
+package com.cbsystematics.edu.homework05.testers.deprecated_tests;
 
 import com.cbsystematics.edu.homework05.dao.StudentDAO;
-import com.cbsystematics.edu.homework05.dao.impl.*;
+import com.cbsystematics.edu.homework05.dao.impl.CriteriaStudentDAOImpl;
 import com.cbsystematics.edu.homework05.entities.Student;
 import com.cbsystematics.edu.homework05.utils.RandomService;
 
 import java.util.List;
 
+@Deprecated
+public class TesterCriteria {
+    public static void main(String[] args) {
+        StudentDAO studentDAO = new CriteriaStudentDAOImpl();
 
-public class TesterChooser {
-
-    private StudentDAO studentDAO;
-    private String realizationName;
-
-
-    public void setRealizationVariant(RealizationVariants realizationVariant){
-        realizationName = realizationVariant.getVariant();
-        if (realizationVariant.equals(JDBC)) {
-            studentDAO = new JDBCStudentDAOImpl();
-        }
-        if (realizationVariant.equals(TINY_HIBERNATE)) {
-            studentDAO = new TinyHibernateStudentDAOImpl();
-        }
-        if (realizationVariant.equals(JPA_SQL)) {
-            studentDAO = new SQLStudentDAOImpl();
-        }
-        if (realizationVariant.equals(JPA_JPQL)) {
-            studentDAO = new JPQLStudentDAOImpl();
-        }
-        if (realizationVariant.equals(JPA_CRITERIA)) {
-            studentDAO = new CriteriaStudentDAOImpl();
-        }
-    }
-
-    public void run(){
-        System.out.println("\t\t\t\tTester for realization in " + realizationName + "!!!!\n\n");
 
         /**CREATE*/
         System.out.println("CREATE");
@@ -62,7 +37,7 @@ public class TesterChooser {
 
         /**DELETE*/
         System.out.println("\n\n\nDELETE");
-        studentDAO.delete(3);
+        studentDAO.delete(7);
         students = studentDAO.getAll();
         students.forEach(System.out::println);
 
@@ -72,11 +47,6 @@ public class TesterChooser {
         int id = 1;
         System.out.println("Name by id = " + id + ": " + studentDAO.getNameById(id));
 
-
         studentDAO.close();
     }
-
-
-
-
 }
