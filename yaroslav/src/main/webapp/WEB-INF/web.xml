@@ -15,7 +15,6 @@
         <servlet-name>HelloServlet</servlet-name>
         <servlet-class>com.cbsystematics.edu.servlets.first_servlet.HelloServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
@@ -26,11 +25,19 @@
         <servlet-name>FormServlet</servlet-name>
         <servlet-class>com.cbsystematics.edu.servlets.form_servlet.FormServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>FormServlet</servlet-name>
         <url-pattern>/form</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.cbsystematics.edu.servlets.product_servlet.ProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
 
 </web-app>
