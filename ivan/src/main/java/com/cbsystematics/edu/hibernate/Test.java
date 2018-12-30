@@ -1,7 +1,5 @@
 package com.cbsystematics.edu.hibernate;
 
-import com.cbsystematics.edu.hibernate.entities.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -13,14 +11,14 @@ public class Test {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        transaction.begin();
-
-        User user = new User(1, "new_user", "qwerty");
-        entityManager.persist(user);
-
-        transaction.commit();
-
-        entityManager.close();
-        entityManagerFactory.close();
+//        transaction.begin();
+//
+//        User user = new User(1, "new_user", "qwerty");
+//        entityManager.persist(user);
+//
+//        transaction.commit();
+//
+//        entityManager.close();
+//        entityManagerFactory.close();
     }
 }

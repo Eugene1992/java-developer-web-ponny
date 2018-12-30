@@ -9,12 +9,11 @@ import java.util.Properties;
 public class DataBaseConnection {
 
     private static Connection connection;
-    private static final String
-            HEROKU_DB_PROPERTIES_FILE_PATH = "database/heroku_database_connection.properties",
-            DRIVER = "driver",
-            URL = "url",
-            USER = "username",
-            PASSWORD = "password";
+    private static final String HEROKU_DB_PROPERTIES_FILE_PATH = "database/heroku_database_connection.properties";
+    private static final String DRIVER = "driver";
+    private static final String URL = "url";
+    private static final String USER = "username";
+    private static final String PASSWORD = "password";
 
     static {
         Properties properties = new Properties();

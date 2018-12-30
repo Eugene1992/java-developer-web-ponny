@@ -3,13 +3,9 @@ package com.cbsystematics.edu.jdbc.entities;
 import com.cbsystematics.edu.jdbc.annotations.Column;
 import com.cbsystematics.edu.jdbc.annotations.Entity;
 import com.cbsystematics.edu.jdbc.annotations.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-@AllArgsConstructor
 @Entity(name = "user")
 @Table(name = "users")
 public class User extends AbstractEntity{

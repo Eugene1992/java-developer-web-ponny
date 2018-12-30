@@ -1,7 +1,6 @@
 package com.cbsystematics.edu.jdbc.utils.reflectionUtils.objectUtils;
 
 import com.cbsystematics.edu.jdbc.annotations.Column;
-import com.cbsystematics.edu.jdbc.entities.AbstractEntity;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -12,8 +11,8 @@ import java.util.stream.Collectors;
 public class ObjectParser {
 
     public static ArrayList<Field> getObjectFields(Object object) {
-        return Arrays.stream(object.getClass().getDeclaredFields()).
-                collect(Collectors.toCollection(ArrayList::new));
+        return Arrays.stream(object.getClass().getDeclaredFields())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private static void setAllFieldsAccessible(Object object) {
