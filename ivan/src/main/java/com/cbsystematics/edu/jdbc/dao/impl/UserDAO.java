@@ -13,7 +13,6 @@ import java.util.List;
 
 public class UserDAO extends AbstractDAO<User> implements DAO {
     @Override
-//    todo need to fix
     public AbstractEntity get(Integer id) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM"
                 + new DataBaseElementsParser(this).getTableName()
