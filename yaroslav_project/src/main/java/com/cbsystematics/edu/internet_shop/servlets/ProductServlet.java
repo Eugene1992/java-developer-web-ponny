@@ -1,4 +1,7 @@
-package com.cbsystematics.edu.servlets.product_servlet;
+package com.cbsystematics.edu.internet_shop.servlets;
+
+
+import com.cbsystematics.edu.internet_shop.entities.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
