@@ -17,6 +17,7 @@
         <module>jpa</module>
         <module>volodimir</module>
         <module>yaroslav_project</module>
+        <module>ingwar_project</module>
     </modules>
     <packaging>pom</packaging>
 
