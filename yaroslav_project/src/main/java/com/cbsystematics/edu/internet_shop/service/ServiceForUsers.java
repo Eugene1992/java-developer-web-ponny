@@ -44,7 +44,12 @@ public class ServiceForUsers implements DAOService<User> {
 
     public void update(User user) {
         UserDAO userDAO = new JDBCUserDAO();
-        serviceForUserDetails.update(user.getUserDetails());
+        UserDetails userDetails = user.getUserDetails();
+        userDetails.setId(userDAO.getDetailsIdById(user.getId()));
+        serviceForUserDetails.update(userDetails);
+        user.setUserDetailsId(user.getUserDetails().getId());
+        int roleId = serviceForRole.getIdByName(user.getRole().getName());
+        user.setRoleId(roleId);
         userDAO.update(user);
     }
 
@@ -52,7 +57,8 @@ public class ServiceForUsers implements DAOService<User> {
         UserDAO userDAO = new JDBCUserDAO();
         user.setId(getNextIdForNewElem(userDAO.getAll()));
         serviceForUserDetails.create(user.getUserDetails());
-        user.setRoleId(user.getRole().getId());
+        int roleId = serviceForRole.getIdByName(user.getRole().getName());
+        user.setRoleId(roleId);
         user.setUserDetailsId(user.getUserDetails().getId());
         userDAO.create(user);
         return user;

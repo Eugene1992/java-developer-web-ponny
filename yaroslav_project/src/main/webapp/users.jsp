@@ -13,7 +13,7 @@
         <div class="row">
             <div class="card">
                 <h5 class="card-header">
-                    Discounts
+                    Users
                     <a href="/users?action=create">
                         <button type="button" class="btn btn-success btn-sm float-right">New User</button>
                     </a>
@@ -55,7 +55,7 @@
                                         ${user.id}
                                 </td>
                                 <td>
-                                        ${user.roleId}
+                                        ${user.getRoleName()}
                                 </td>
                                 <td>
                                         ${user.username}

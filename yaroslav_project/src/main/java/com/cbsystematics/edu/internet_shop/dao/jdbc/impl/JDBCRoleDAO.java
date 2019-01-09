@@ -18,6 +18,8 @@ public class JDBCRoleDAO implements RoleDAO {
     private static final String GET_QUERY = "SELECT role_name FROM p_roles WHERE id = %s";
     private static final String DELETE_QUERY = "DELETE FROM p_roles WHERE id = %s";
 
+    private static final String GET_ID_BY_NAME_QUERY = "SELECT id FROM p_roles WHERE role_name = %s";
+
 
     @Override
     public Role get(Integer id) {
@@ -94,6 +96,24 @@ public class JDBCRoleDAO implements RoleDAO {
             e.printStackTrace();
         }
         return roles;
+    }
+
+
+    @Override
+    public int getIdByRoleName(String roleName) {
+        String sql = String.format(GET_ID_BY_NAME_QUERY, roleName);
+        int id = 0;
+        try {
+            Statement statement = Connector.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+            Connector.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
 }

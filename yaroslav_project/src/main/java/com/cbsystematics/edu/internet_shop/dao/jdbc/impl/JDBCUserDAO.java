@@ -19,6 +19,7 @@ public class JDBCUserDAO implements UserDAO {
     private static final String GET_QUERY = "SELECT username, password, role_id, user_details_id FROM p_users WHERE id = %s";
     private static final String DELETE_QUERY = "DELETE FROM p_users WHERE id = %s";
 
+    private static final String GET_DETAILS_ID_BY_ID_QUERY = "SELECT user_details_id FROM p_users WHERE id = %s";
 
 
     @Override
@@ -110,4 +111,20 @@ public class JDBCUserDAO implements UserDAO {
         return users;
     }
 
+    @Override
+    public int getDetailsIdById(Integer id) {
+        String sql = String.format(GET_DETAILS_ID_BY_ID_QUERY, id);
+        int userDetailsId = 0;
+        try {
+            Statement statement = Connector.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                userDetailsId = resultSet.getInt("user_details_id");
+             }
+            Connector.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userDetailsId;
+    }
 }

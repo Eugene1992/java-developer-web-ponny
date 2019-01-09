@@ -61,7 +61,7 @@ public class UserServlet extends HttpServlet {
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
         String roleName = req.getParameter("role");
-
+        System.out.println(roleName);
         int id;
         User user;
         String idParam = req.getParameter("id");
@@ -69,13 +69,13 @@ public class UserServlet extends HttpServlet {
             id = Integer.parseInt(idParam);
             user = new User(id, username, password);
             user.setUserDetails(new UserDetails(firstName, lastName, email, phone));
-            user.setRoleId(1);
+            user.setRole(new Role(roleName));
             users.set(service.getListIdByDatabaseId(idParam, users), user);
             service.update(user);
         } else {
             user = new User(0, username, password);
             user.setUserDetails(new UserDetails(firstName, lastName, email, phone));
-            user.setRole(new Role(1,"Admin"));
+            user.setRole(new Role(roleName));
             user = (User) service.create(user);
             users.add(user);
         }
