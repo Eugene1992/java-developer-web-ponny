@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class PreparedStatementDIExample {
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://ec2-54-228-251-254.eu-west-1.compute.amazonaws.com:5432/d3kqlpsdudhcij?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+    static final String DB_URL = "impl:postgresql://ec2-54-228-251-254.eu-west-1.compute.amazonaws.com:5432/d3kqlpsdudhcij?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
     //  Database credentials
     static final String USER = "nykgmqvvdcegwm";

@@ -1,7 +1,7 @@
-package com.cbsystematics.edu.internet_shop.dao.impl;
+package com.cbsystematics.edu.internet_shop.dao.hibernate.impl;
 
 import com.cbsystematics.edu.internet_shop.config.Connection;
-import com.cbsystematics.edu.internet_shop.dao.DAO;
+import com.cbsystematics.edu.internet_shop.dao.hibernate.DAO;
 import com.cbsystematics.edu.internet_shop.entities.AbstractEntity;
 
 import javax.persistence.*;

@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "p_products")
+//@Entity
+//@Table(name = "p_products")
 public class Product extends AbstractEntity {
 
     private String title;
@@ -25,6 +22,7 @@ public class Product extends AbstractEntity {
 
     public Product(Integer id, String title, String description, String category, Integer price) {
         this.id = id;
+        this.version = 0;
         this.title = title;
         this.description = description;
         this.category = category;

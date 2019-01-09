@@ -1,4 +1,4 @@
-package com.cbsystematics.edu.internet_shop.dao;
+package com.cbsystematics.edu.internet_shop.dao.hibernate;
 
 import com.cbsystematics.edu.internet_shop.entities.User;
 

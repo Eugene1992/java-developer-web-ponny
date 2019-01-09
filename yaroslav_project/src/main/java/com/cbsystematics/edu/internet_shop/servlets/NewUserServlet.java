@@ -6,11 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class NewProductServlet extends HttpServlet {
+public class NewUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/new_product.jsp").forward(req, resp);
+        req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
     }
 
 
@@ -18,5 +18,4 @@ public class NewProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
-
 }

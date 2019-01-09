@@ -1,6 +1,6 @@
-package com.cbsystematics.edu.internet_shop.dao.impl;
+package com.cbsystematics.edu.internet_shop.dao.hibernate.impl;
 
-import com.cbsystematics.edu.internet_shop.dao.RoleDAO;
+import com.cbsystematics.edu.internet_shop.dao.hibernate.RoleDAO;
 import com.cbsystematics.edu.internet_shop.entities.Role;
 
 public class RoleDAOImpl extends AbstractDAOImpl<Role> implements RoleDAO {

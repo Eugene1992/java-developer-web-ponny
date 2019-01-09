@@ -8,7 +8,7 @@ public class Connector {
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://ec2-54-83-8-246.compute-1.amazonaws.com:5432/d4gckf113qmjk1?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+    static final String DB_URL = "impl:postgresql://ec2-54-83-8-246.compute-1.amazonaws.com:5432/d4gckf113qmjk1?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
     //  Database credentials
     static final String USER = "puvwmdlrwnpfav";

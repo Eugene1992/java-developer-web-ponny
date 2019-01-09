@@ -5,19 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-@MappedSuperclass
+//@MappedSuperclass
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
 
-    @Version
+    //@Version
     protected Integer version;
 }

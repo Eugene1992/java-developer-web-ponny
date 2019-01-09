@@ -1,7 +1,7 @@
-package com.cbsystematics.edu.internet_shop.dao.impl;
+package com.cbsystematics.edu.internet_shop.dao.hibernate.impl;
 
 
-import com.cbsystematics.edu.internet_shop.dao.UserDAO;
+import com.cbsystematics.edu.internet_shop.dao.hibernate.UserDAO;
 import com.cbsystematics.edu.internet_shop.entities.User;
 
 public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
