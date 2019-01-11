@@ -6,30 +6,36 @@ import com.cbsystematics.edu.internet_shop.entities.Product;
 
 import java.util.List;
 
-public class ServiceForProducts implements DAOService<Product> {
+public class ProductService extends AbstractService implements IProductService {
 
+    private ProductDAO productDAO;
+
+    public ProductService() {
+        this.productDAO = new JDBCProductDAO();
+    }
+
+    @Override
     public List<Product> getAll() {
-        ProductDAO productDAO = new JDBCProductDAO();
         return productDAO.getAll();
     }
 
+    @Override
     public Product get(Integer id) {
-        ProductDAO productDAO = new JDBCProductDAO();
         return productDAO.get(id);
     }
 
+    @Override
     public void delete(Integer id) {
-        ProductDAO productDAO = new JDBCProductDAO();
         productDAO.delete(id);
     }
 
+    @Override
     public void update(Product product) {
-        ProductDAO productDAO = new JDBCProductDAO();
         productDAO.update(product);
     }
 
+    @Override
     public Product create(Product product) {
-        ProductDAO productDAO = new JDBCProductDAO();
         product.setId(getNextIdForNewElem(productDAO.getAll()));
         productDAO.create(product);
         return product;

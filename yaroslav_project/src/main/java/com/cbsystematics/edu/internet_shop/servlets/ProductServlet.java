@@ -2,20 +2,18 @@ package com.cbsystematics.edu.internet_shop.servlets;
 
 
 import com.cbsystematics.edu.internet_shop.entities.Product;
-import com.cbsystematics.edu.internet_shop.service.DAOService;
-import com.cbsystematics.edu.internet_shop.service.ServiceForProducts;
+import com.cbsystematics.edu.internet_shop.service.IProductService;
+import com.cbsystematics.edu.internet_shop.service.ProductService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class ProductServlet extends HttpServlet {
 
-    private static DAOService service = new ServiceForProducts();
-    private static final List<Product> products = service.getAll();
+    private IProductService service = new ProductService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,16 +27,14 @@ public class ProductServlet extends HttpServlet {
                 case "delete": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        Product deleteProduct = (Product) service.getElemByDatabaseId(idParam, products);
-                        products.remove(deleteProduct);
-                        service.delete(deleteProduct.getId());
+                        service.delete(Integer.parseInt(idParam));
                     }
                     break;
                 }
                 case "update": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        Product updProduct = (Product) service.getElemByDatabaseId(idParam, products);
+                        Product updProduct = (Product) service.get(Integer.parseInt(idParam));
                         req.setAttribute("updProduct", updProduct);
                         req.getRequestDispatcher("/new_product.jsp").forward(req, resp);
                     }
@@ -47,7 +43,7 @@ public class ProductServlet extends HttpServlet {
             }
         }
 
-        req.setAttribute("products", products);
+        req.setAttribute("products", service.getAll());
         req.getRequestDispatcher("/products.jsp").forward(req, resp);
     }
 
@@ -65,15 +61,13 @@ public class ProductServlet extends HttpServlet {
         if (idParam != null && !idParam.isEmpty()) {
             id = Integer.parseInt(idParam);
             product = new Product(id, title, description, category, price);
-            products.set(service.getListIdByDatabaseId(idParam, products), product);
             service.update(product);
         } else {
-            product = new Product(0, title, description, category, price);
-            product = (Product) service.create(product);
-            products.add(product);
+            product = new Product(title, description, category, price);
+            service.create(product);
         }
 
-        req.setAttribute("products", products);
+        req.setAttribute("products", service.getAll());
         req.getRequestDispatcher("/products.jsp").forward(req, resp);
     }
 }

@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Connector {
+public class JDBCConnector {
 
     private static final String HEROKU_DB_PROPERTIES = "heroku_db.properties";
     private static final String DRIVER = "driver";
@@ -14,18 +14,13 @@ public class Connector {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
 
-
-
     private static Connection conn;
     private static Properties configProperties;
-
-
 
     public static Connection getConnection() {
         connectToDatabase();
         return conn;
     }
-
 
     public static void close() {
         try {
@@ -34,7 +29,6 @@ public class Connector {
             e.printStackTrace();
         }
     }
-
 
     private static void connectToDatabase() {
         configProperties = new Properties();

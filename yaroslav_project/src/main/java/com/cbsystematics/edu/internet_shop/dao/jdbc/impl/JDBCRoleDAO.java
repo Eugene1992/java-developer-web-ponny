@@ -1,6 +1,6 @@
 package com.cbsystematics.edu.internet_shop.dao.jdbc.impl;
 
-import com.cbsystematics.edu.internet_shop.config.Connector;
+import com.cbsystematics.edu.internet_shop.config.JDBCConnector;
 import com.cbsystematics.edu.internet_shop.dao.jdbc.RoleDAO;
 import com.cbsystematics.edu.internet_shop.entities.Role;
 
@@ -17,8 +17,10 @@ public class JDBCRoleDAO implements RoleDAO {
     private static final String UPDATE_QUERY = "UPDATE p_roles SET role_name = ? WHERE id = ?";
     private static final String GET_QUERY = "SELECT role_name FROM p_roles WHERE id = %s";
     private static final String DELETE_QUERY = "DELETE FROM p_roles WHERE id = %s";
-
     private static final String GET_ID_BY_NAME_QUERY = "SELECT id FROM p_roles WHERE role_name = %s";
+
+    private static final String NAME = "role_name";
+    public static final String ID = "id";
 
 
     @Override
@@ -26,13 +28,13 @@ public class JDBCRoleDAO implements RoleDAO {
         String sql = String.format(GET_QUERY, id);
         Role role = null;
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                String name = resultSet.getString("role_name");
+                String name = resultSet.getString(NAME);
                 role = new Role(id, name);
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,11 +45,11 @@ public class JDBCRoleDAO implements RoleDAO {
     public Role create(Role role) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(INSERT_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(INSERT_QUERY);
             statement.setInt(1, role.getId());
             statement.setString(2, role.getName());
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +60,7 @@ public class JDBCRoleDAO implements RoleDAO {
     public Role update(Role role) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(UPDATE_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(UPDATE_QUERY);
             statement.setString(1, role.getName());
             statement.setInt(2, role.getId());
             statement.executeUpdate();
@@ -72,9 +74,9 @@ public class JDBCRoleDAO implements RoleDAO {
     public void delete(Integer id) {
         String sql = String.format(DELETE_QUERY, id);
         try {
-            PreparedStatement statement = Connector.getConnection().prepareStatement(sql);
+            PreparedStatement statement = JDBCConnector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,14 +86,14 @@ public class JDBCRoleDAO implements RoleDAO {
     public List<Role> getAll() {
         List<Role> roles = new ArrayList<>();
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_QUERY);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("role_name");
+                int id = resultSet.getInt(ID);
+                String name = resultSet.getString(NAME);
                 roles.add(new Role(id, name));
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,12 +106,12 @@ public class JDBCRoleDAO implements RoleDAO {
         String sql = String.format(GET_ID_BY_NAME_QUERY, roleName);
         int id = 0;
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                id = resultSet.getInt("id");
+                id = resultSet.getInt(ID);
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

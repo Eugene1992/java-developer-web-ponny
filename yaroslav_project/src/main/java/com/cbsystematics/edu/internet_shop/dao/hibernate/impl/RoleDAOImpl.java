@@ -8,7 +8,7 @@ public class RoleDAOImpl extends AbstractDAOImpl<Role> implements RoleDAO {
 
 //    private static final String GET_ALL_USERS_QUERY = "select r from Role r";
 //
-//    private EntityManager em = Connection.getEntityManager();
+//    private EntityManager em = ConnectionFactory.getEntityManager();
 //
 //    @Override
 //    public Role get(Integer id) {

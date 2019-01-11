@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class Connection {
+public class ConnectionFactory {
 
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.cbs.edu.jpa");
     private static EntityManager em = emf.createEntityManager();

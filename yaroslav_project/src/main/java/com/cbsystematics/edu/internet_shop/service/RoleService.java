@@ -7,30 +7,37 @@ import com.cbsystematics.edu.internet_shop.entities.Role;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class ServiceForRole implements DAOService<Role> {
+public class RoleService extends AbstractService implements IRoleService {
 
+    private RoleDAO roleDAO;
+
+    public RoleService() {
+        this.roleDAO = new JDBCRoleDAO();
+    }
+
+
+    @Override
     public List<Role> getAll() {
-        RoleDAO roleDAO = new JDBCRoleDAO();
         return roleDAO.getAll();
     }
 
+    @Override
     public Role get(Integer id) {
-        RoleDAO roleDAO = new JDBCRoleDAO();
         return roleDAO.get(id);
     }
 
+    @Override
     public void delete(Integer id) {
-        RoleDAO roleDAO = new JDBCRoleDAO();
         roleDAO.delete(id);
     }
 
+    @Override
     public void update(Role role) {
-        RoleDAO roleDAO = new JDBCRoleDAO();
         roleDAO.update(role);
     }
 
+    @Override
     public Role create(Role role) {
-        RoleDAO roleDAO = new JDBCRoleDAO();
         role.setId(getNextIdForNewElem(roleDAO.getAll()));
         roleDAO.create(role);
         return role;

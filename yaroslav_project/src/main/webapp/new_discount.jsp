@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group col-lg-4 col-md-4">
                             <label for="amount">Amount:</label>
-                            <input name="amount" type="text" class="form-control" id="amount" value="${updDiscount.amount}">
+                            <input name="amount" type="text" class="form-control" step = "0.01" id="amount" value="${updDiscount.amount}">
                         </div>
                     </div>
                     <div class="row">

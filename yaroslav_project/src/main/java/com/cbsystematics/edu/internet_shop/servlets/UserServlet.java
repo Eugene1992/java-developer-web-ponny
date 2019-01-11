@@ -3,7 +3,7 @@ package com.cbsystematics.edu.internet_shop.servlets;
 import com.cbsystematics.edu.internet_shop.entities.Role;
 import com.cbsystematics.edu.internet_shop.entities.User;
 import com.cbsystematics.edu.internet_shop.entities.UserDetails;
-import com.cbsystematics.edu.internet_shop.service.DAOService;
+import com.cbsystematics.edu.internet_shop.service.IUserService;
 import com.cbsystematics.edu.internet_shop.service.ServiceForUsers;
 
 import javax.servlet.ServletException;
@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class UserServlet extends HttpServlet {
-    private static DAOService service = new ServiceForUsers();
-    private static final List<User> users = service.getAll();
+    private IUserService service = new ServiceForUsers();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,16 +28,14 @@ public class UserServlet extends HttpServlet {
                 case "delete": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        User deleteUser = (User) service.getElemByDatabaseId(idParam, users);
-                        users.remove(deleteUser);
-                        service.delete(deleteUser.getId());
+                        service.delete(Integer.parseInt(idParam));
                     }
                     break;
                 }
                 case "update": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        User updUser = (User) service.getElemByDatabaseId(idParam, users);
+                        User updUser = (User) service.get(Integer.parseInt(idParam));
                         req.setAttribute("updUser", updUser);
                         req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
                     }
@@ -47,7 +44,7 @@ public class UserServlet extends HttpServlet {
             }
         }
 
-        req.setAttribute("users", users);
+        req.setAttribute("users", service.getAll());
         req.getRequestDispatcher("/users.jsp").forward(req, resp);
     }
 
@@ -70,17 +67,15 @@ public class UserServlet extends HttpServlet {
             user = new User(id, username, password);
             user.setUserDetails(new UserDetails(firstName, lastName, email, phone));
             user.setRole(new Role(roleName));
-            users.set(service.getListIdByDatabaseId(idParam, users), user);
             service.update(user);
         } else {
-            user = new User(0, username, password);
+            user = new User(username, password);
             user.setUserDetails(new UserDetails(firstName, lastName, email, phone));
             user.setRole(new Role(roleName));
             user = (User) service.create(user);
-            users.add(user);
         }
 
-        req.setAttribute("users", users);
+        req.setAttribute("users", service.getAll());
         req.getRequestDispatcher("/users.jsp").forward(req, resp);
     }
 }

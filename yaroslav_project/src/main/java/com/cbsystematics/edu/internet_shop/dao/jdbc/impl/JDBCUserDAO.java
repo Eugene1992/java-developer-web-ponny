@@ -1,6 +1,6 @@
 package com.cbsystematics.edu.internet_shop.dao.jdbc.impl;
 
-import com.cbsystematics.edu.internet_shop.config.Connector;
+import com.cbsystematics.edu.internet_shop.config.JDBCConnector;
 import com.cbsystematics.edu.internet_shop.dao.jdbc.UserDAO;
 import com.cbsystematics.edu.internet_shop.entities.User;
 
@@ -27,7 +27,7 @@ public class JDBCUserDAO implements UserDAO {
         String sql = String.format(GET_QUERY, id);
         User user = null;
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 String username = resultSet.getString("username");
@@ -36,7 +36,7 @@ public class JDBCUserDAO implements UserDAO {
                 int userDetailsId = resultSet.getInt("user_details_id");
                 user = new User(id, username, password, roleId, userDetailsId);
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,14 +47,14 @@ public class JDBCUserDAO implements UserDAO {
     public User create(User user) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(INSERT_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(INSERT_QUERY);
             statement.setInt(1, user.getId());
             statement.setString(2, user.getUsername());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getRoleId());
             statement.setInt(5, user.getUserDetailsId());
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class JDBCUserDAO implements UserDAO {
     public User update(User user) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(UPDATE_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(UPDATE_QUERY);
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setInt(3, user.getRoleId());
@@ -82,9 +82,9 @@ public class JDBCUserDAO implements UserDAO {
     public void delete(Integer id) {
         String sql = String.format(DELETE_QUERY, id);
         try {
-            PreparedStatement statement = Connector.getConnection().prepareStatement(sql);
+            PreparedStatement statement = JDBCConnector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class JDBCUserDAO implements UserDAO {
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_QUERY);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -104,7 +104,7 @@ public class JDBCUserDAO implements UserDAO {
                 int userDetailsId = resultSet.getInt("user_details_id");
                 users.add(new User(id, username, password, roleId, userDetailsId));
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -116,12 +116,12 @@ public class JDBCUserDAO implements UserDAO {
         String sql = String.format(GET_DETAILS_ID_BY_ID_QUERY, id);
         int userDetailsId = 0;
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 userDetailsId = resultSet.getInt("user_details_id");
              }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

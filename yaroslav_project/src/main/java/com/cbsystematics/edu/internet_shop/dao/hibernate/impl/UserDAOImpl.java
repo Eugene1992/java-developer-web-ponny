@@ -44,7 +44,7 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
 //        EntityTransaction transaction = em.getTransaction();
 //        transaction.begin();
 //
-//        User user = Connection.getEntityManager().find(User.class, id);
+//        User user = ConnectionFactory.getEntityManager().find(User.class, id);
 //        em.remove(user);
 //
 //        transaction.commit();

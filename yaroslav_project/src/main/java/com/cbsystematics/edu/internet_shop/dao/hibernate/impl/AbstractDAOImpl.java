@@ -1,6 +1,6 @@
 package com.cbsystematics.edu.internet_shop.dao.hibernate.impl;
 
-import com.cbsystematics.edu.internet_shop.config.Connection;
+import com.cbsystematics.edu.internet_shop.config.ConnectionFactory;
 import com.cbsystematics.edu.internet_shop.dao.hibernate.DAO;
 import com.cbsystematics.edu.internet_shop.entities.AbstractEntity;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AbstractDAOImpl<T extends AbstractEntity> implements DAO<T> {
 
-    private EntityManager em = Connection.getEntityManager();
+    private EntityManager em = ConnectionFactory.getEntityManager();
 
 
     private static final String GET_ALL_QUERY = "select * from %S";

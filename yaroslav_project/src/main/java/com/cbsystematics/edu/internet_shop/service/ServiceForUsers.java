@@ -8,56 +8,61 @@ import com.cbsystematics.edu.internet_shop.entities.UserDetails;
 
 import java.util.List;
 
-public class ServiceForUsers implements DAOService<User> {
+public class ServiceForUsers extends AbstractService implements IUserService {
 
-    private ServiceForUserDetails serviceForUserDetails = new ServiceForUserDetails();
-    private ServiceForRole serviceForRole = new ServiceForRole();
+    private UserDetailsService userDetailsService = new UserDetailsService();
+    private RoleService roleService = new RoleService();
 
+    @Override
     public List<User> getAll() {
         UserDAO userDAO = new JDBCUserDAO();
         List<User> users = userDAO.getAll();
         for (User user : users) {
-            UserDetails userDetails = serviceForUserDetails.get(user.getUserDetailsId());
-            Role role = serviceForRole.get(user.getRoleId());
+            UserDetails userDetails = userDetailsService.get(user.getUserDetailsId());
+            Role role = roleService.get(user.getRoleId());
             user.setUserDetails(userDetails);
             user.setRole(role);
         }
         return users;
     }
 
+    @Override
     public User get(Integer id) {
         UserDAO userDAO = new JDBCUserDAO();
         User user = userDAO.get(id);
-        UserDetails userDetails = serviceForUserDetails.get(user.getUserDetailsId());
-        Role role = serviceForRole.get(user.getRoleId());
+        UserDetails userDetails = userDetailsService.get(user.getUserDetailsId());
+        Role role = roleService.get(user.getRoleId());
         user.setRole(role);
         user.setUserDetails(userDetails);
         return user;
     }
 
+    @Override
     public void delete(Integer id) {
         UserDAO userDAO = new JDBCUserDAO();
         int userDetailsId = userDAO.get(id).getUserDetailsId();
         userDAO.delete(id);
-        serviceForUserDetails.delete(userDetailsId);
+        userDetailsService.delete(userDetailsId);
     }
 
+    @Override
     public void update(User user) {
         UserDAO userDAO = new JDBCUserDAO();
         UserDetails userDetails = user.getUserDetails();
         userDetails.setId(userDAO.getDetailsIdById(user.getId()));
-        serviceForUserDetails.update(userDetails);
+        userDetailsService.update(userDetails);
         user.setUserDetailsId(user.getUserDetails().getId());
-        int roleId = serviceForRole.getIdByName(user.getRole().getName());
+        int roleId = roleService.getIdByName(user.getRole().getName());
         user.setRoleId(roleId);
         userDAO.update(user);
     }
 
+    @Override
     public User create(User user) {
         UserDAO userDAO = new JDBCUserDAO();
         user.setId(getNextIdForNewElem(userDAO.getAll()));
-        serviceForUserDetails.create(user.getUserDetails());
-        int roleId = serviceForRole.getIdByName(user.getRole().getName());
+        userDetailsService.create(user.getUserDetails());
+        int roleId = roleService.getIdByName(user.getRole().getName());
         user.setRoleId(roleId);
         user.setUserDetailsId(user.getUserDetails().getId());
         userDAO.create(user);

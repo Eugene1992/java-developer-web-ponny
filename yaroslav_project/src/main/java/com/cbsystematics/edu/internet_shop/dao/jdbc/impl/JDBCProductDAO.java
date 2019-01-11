@@ -1,6 +1,6 @@
 package com.cbsystematics.edu.internet_shop.dao.jdbc.impl;
 
-import com.cbsystematics.edu.internet_shop.config.Connector;
+import com.cbsystematics.edu.internet_shop.config.JDBCConnector;
 import com.cbsystematics.edu.internet_shop.dao.jdbc.ProductDAO;
 import com.cbsystematics.edu.internet_shop.entities.Product;
 
@@ -13,11 +13,18 @@ import java.util.List;
 
 
 public class JDBCProductDAO implements ProductDAO {
+
     private static final String INSERT_QUERY = "INSERT INTO p_products (id, title, description, price, category) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM p_products";
     private static final String UPDATE_QUERY = "UPDATE p_products SET title = ?, description = ?, category = ?, price = ? WHERE id = ?";
     private static final String GET_QUERY = "SELECT title, description, category, price FROM p_products WHERE id = %s";
     private static final String DELETE_QUERY = "DELETE FROM p_products WHERE id = %s";
+
+    private static final String TITLE = "title";
+    private static final String DESCRIPTION = "description";
+    private static final String PRICE = "price";
+    private static final String CATEGORY = "category";
+    private static final String ID = "id";
 
 
     @Override
@@ -25,16 +32,16 @@ public class JDBCProductDAO implements ProductDAO {
         String sql = String.format(GET_QUERY, id);
         Product product = null;
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                String title = resultSet.getString("title");
-                String description = resultSet.getString("description");
-                int price = resultSet.getInt("price");
-                String category = resultSet.getString("category");
+                String title = resultSet.getString(TITLE);
+                String description = resultSet.getString(DESCRIPTION);
+                int price = resultSet.getInt(PRICE);
+                String category = resultSet.getString(CATEGORY);
                 product = new Product(id, title, description, category, price);
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,14 +52,14 @@ public class JDBCProductDAO implements ProductDAO {
     public Product create(Product product) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(INSERT_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(INSERT_QUERY);
             statement.setInt(1, product.getId());
             statement.setString(2, product.getTitle());
             statement.setString(3, product.getDescription());
             statement.setInt(4, product.getPrice());
             statement.setString(5, product.getCategory());
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,7 +70,7 @@ public class JDBCProductDAO implements ProductDAO {
     public Product update(Product product) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(UPDATE_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(UPDATE_QUERY);
             statement.setString(1, product.getTitle());
             statement.setString(2, product.getDescription());
             statement.setString(3, product.getCategory());
@@ -80,9 +87,9 @@ public class JDBCProductDAO implements ProductDAO {
     public void delete(Integer id) {
         String sql = String.format(DELETE_QUERY, id);
         try {
-            PreparedStatement statement = Connector.getConnection().prepareStatement(sql);
+            PreparedStatement statement = JDBCConnector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,17 +99,17 @@ public class JDBCProductDAO implements ProductDAO {
     public List<Product> getAll() {
         List<Product> students = new ArrayList<>();
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_QUERY);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String title = resultSet.getString("title");
-                String description = resultSet.getString("description");
-                int price = resultSet.getInt("price");
-                String category = resultSet.getString("category");
+                int id = resultSet.getInt(ID);
+                String title = resultSet.getString(TITLE);
+                String description = resultSet.getString(DESCRIPTION);
+                int price = resultSet.getInt(PRICE);
+                String category = resultSet.getString(CATEGORY);
                 students.add(new Product(id, title, description, category, price));
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

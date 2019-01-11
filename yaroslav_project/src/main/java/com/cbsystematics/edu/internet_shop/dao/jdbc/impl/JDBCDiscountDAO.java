@@ -1,6 +1,6 @@
 package com.cbsystematics.edu.internet_shop.dao.jdbc.impl;
 
-import com.cbsystematics.edu.internet_shop.config.Connector;
+import com.cbsystematics.edu.internet_shop.config.JDBCConnector;
 import com.cbsystematics.edu.internet_shop.dao.jdbc.DiscountDAO;
 import com.cbsystematics.edu.internet_shop.entities.Discount;
 
@@ -18,20 +18,23 @@ public class JDBCDiscountDAO implements DiscountDAO {
     private static final String GET_QUERY = "SELECT discount_name, amount FROM p_discounts WHERE id = %s";
     private static final String DELETE_QUERY = "DELETE FROM p_discounts WHERE id = %s";
 
+    private static final String AMOUNT = "amount";
+    private static final String NAME = "discount_name";
+    private static final String ID = "id";
 
     @Override
     public Discount get(Integer id) {
         String sql = String.format(GET_QUERY, id);
         Discount discount = null;
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                String name = resultSet.getString("discount_name");
-                double amount = resultSet.getInt("amount");
+                String name = resultSet.getString(NAME);
+                double amount = resultSet.getInt(AMOUNT);
                 discount = new Discount(id, name, amount);
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,12 +45,12 @@ public class JDBCDiscountDAO implements DiscountDAO {
     public Discount create(Discount discount) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(INSERT_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(INSERT_QUERY);
             statement.setInt(1, discount.getId());
             statement.setString(2, discount.getName());
             statement.setDouble(3, discount.getAmount());
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +61,7 @@ public class JDBCDiscountDAO implements DiscountDAO {
     public Discount update(Discount discount) {
         PreparedStatement statement;
         try {
-            statement = Connector.getConnection().prepareStatement(UPDATE_QUERY);
+            statement = JDBCConnector.getConnection().prepareStatement(UPDATE_QUERY);
             statement.setString(1, discount.getName());
             statement.setDouble(2, discount.getAmount());
             statement.setInt(3, discount.getId());
@@ -73,9 +76,9 @@ public class JDBCDiscountDAO implements DiscountDAO {
     public void delete(Integer id) {
         String sql = String.format(DELETE_QUERY, id);
         try {
-            PreparedStatement statement = Connector.getConnection().prepareStatement(sql);
+            PreparedStatement statement = JDBCConnector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,15 +88,15 @@ public class JDBCDiscountDAO implements DiscountDAO {
     public List<Discount> getAll() {
         List<Discount> discounts = new ArrayList<>();
         try {
-            Statement statement = Connector.getConnection().createStatement();
+            Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_QUERY);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String discountName = resultSet.getString("discount_name");
-                double amount = resultSet.getInt("amount");
+                int id = resultSet.getInt(ID);
+                String discountName = resultSet.getString(NAME);
+                double amount = resultSet.getInt(AMOUNT);
                 discounts.add(new Discount(id, discountName, amount));
             }
-            Connector.close();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

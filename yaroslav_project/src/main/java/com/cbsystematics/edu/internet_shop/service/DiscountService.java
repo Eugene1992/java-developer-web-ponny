@@ -6,30 +6,36 @@ import com.cbsystematics.edu.internet_shop.entities.Discount;
 
 import java.util.List;
 
-public class ServiceForDiscounts implements DAOService<Discount> {
+public class DiscountService extends AbstractService implements IDiscountService {
 
+    private DiscountDAO discountDAO;
+
+    public DiscountService() {
+        this.discountDAO = new JDBCDiscountDAO();
+    }
+
+    @Override
     public List<Discount> getAll() {
-        DiscountDAO discountDAO = new JDBCDiscountDAO();
         return discountDAO.getAll();
     }
 
+    @Override
     public Discount get(Integer id) {
-        DiscountDAO discountDAO = new JDBCDiscountDAO();
         return discountDAO.get(id);
     }
 
+    @Override
     public void delete(Integer id) {
-        DiscountDAO discountDAO = new JDBCDiscountDAO();
         discountDAO.delete(id);
     }
 
+    @Override
     public void update(Discount discount) {
-        DiscountDAO productDAO = new JDBCDiscountDAO();
-        productDAO.update(discount);
+        discountDAO.update(discount);
     }
 
+    @Override
     public Discount create(Discount discount) {
-        DiscountDAO discountDAO = new JDBCDiscountDAO();
         discount.setId(getNextIdForNewElem(discountDAO.getAll()));
         discountDAO.create(discount);
         return discount;

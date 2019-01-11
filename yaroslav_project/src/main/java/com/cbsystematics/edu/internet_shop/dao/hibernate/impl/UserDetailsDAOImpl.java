@@ -7,7 +7,7 @@ public class UserDetailsDAOImpl extends AbstractDAOImpl<UserDetails> implements 
 
     private static final String GET_ALL_USERS_QUERY = "select u from UserDetails u";
 
-//    EntityManager em = Connection.getEntityManager();
+//    EntityManager em = ConnectionFactory.getEntityManager();
 //
 //
 //    @Override
