@@ -75,6 +75,7 @@ public class JDBCUserDetailsDAO implements UserDetailsDAO {
             statement.setString(4, userDetails.getPhone());
             statement.setInt(5, userDetails.getId());
             statement.executeUpdate();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

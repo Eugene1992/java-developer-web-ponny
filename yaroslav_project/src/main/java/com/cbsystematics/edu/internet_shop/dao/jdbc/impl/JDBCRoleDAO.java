@@ -17,10 +17,10 @@ public class JDBCRoleDAO implements RoleDAO {
     private static final String UPDATE_QUERY = "UPDATE p_roles SET role_name = ? WHERE id = ?";
     private static final String GET_QUERY = "SELECT role_name FROM p_roles WHERE id = %s";
     private static final String DELETE_QUERY = "DELETE FROM p_roles WHERE id = %s";
-    private static final String GET_ID_BY_NAME_QUERY = "SELECT id FROM p_roles WHERE role_name = %s";
+    private static final String GET_ID_BY_NAME_QUERY = "SELECT id FROM p_roles WHERE role_name = \'%s\'";
 
     private static final String NAME = "role_name";
-    public static final String ID = "id";
+    private static final String ID = "id";
 
 
     @Override
@@ -100,22 +100,22 @@ public class JDBCRoleDAO implements RoleDAO {
         return roles;
     }
 
-
     @Override
     public int getIdByRoleName(String roleName) {
         String sql = String.format(GET_ID_BY_NAME_QUERY, roleName);
-        int id = 0;
+        Role role = null;
         try {
             Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                id = resultSet.getInt(ID);
+                int id = resultSet.getInt(ID);
+                role = new Role(id, roleName);
             }
             JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return id;
+        return role.getId();
     }
 
 }

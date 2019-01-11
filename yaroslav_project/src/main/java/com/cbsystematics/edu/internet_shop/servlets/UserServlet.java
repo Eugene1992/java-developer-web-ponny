@@ -4,7 +4,7 @@ import com.cbsystematics.edu.internet_shop.entities.Role;
 import com.cbsystematics.edu.internet_shop.entities.User;
 import com.cbsystematics.edu.internet_shop.entities.UserDetails;
 import com.cbsystematics.edu.internet_shop.service.IUserService;
-import com.cbsystematics.edu.internet_shop.service.ServiceForUsers;
+import com.cbsystematics.edu.internet_shop.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserServlet extends HttpServlet {
-    private IUserService service = new ServiceForUsers();
+    private IUserService service = new UserService();
 
 
     @Override
@@ -60,7 +60,7 @@ public class UserServlet extends HttpServlet {
         String roleName = req.getParameter("role");
         System.out.println(roleName);
         int id;
-        User user;
+        User user ;
         String idParam = req.getParameter("id");
         if (idParam != null && !idParam.isEmpty()) {
             id = Integer.parseInt(idParam);
@@ -72,7 +72,7 @@ public class UserServlet extends HttpServlet {
             user = new User(username, password);
             user.setUserDetails(new UserDetails(firstName, lastName, email, phone));
             user.setRole(new Role(roleName));
-            user = (User) service.create(user);
+            service.create(user);
         }
 
         req.setAttribute("users", service.getAll());

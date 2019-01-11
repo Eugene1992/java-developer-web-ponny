@@ -28,12 +28,12 @@ public class User extends AbstractEntity {
 
     //@OneToOne
     //@JoinColumn(name = "user_details_id")
-    private UserDetails userDetails = new UserDetails();
+    private UserDetails userDetails;
 
 
     //@ManyToOne
     //@JoinColumn(name = "role_id")
-    private Role role = new Role();
+    private Role role;
 
 
     //@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

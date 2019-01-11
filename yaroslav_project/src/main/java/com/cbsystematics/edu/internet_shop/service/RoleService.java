@@ -5,7 +5,6 @@ import com.cbsystematics.edu.internet_shop.dao.jdbc.impl.JDBCRoleDAO;
 import com.cbsystematics.edu.internet_shop.entities.Role;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class RoleService extends AbstractService implements IRoleService {
 
@@ -43,17 +42,5 @@ public class RoleService extends AbstractService implements IRoleService {
         return role;
     }
 
-
-    public int getIdByName(String name) {
-        RoleDAO roleDAO = new JDBCRoleDAO();
-        List<Role> roles = roleDAO.getAll();
-        for (Role role : roles) {
-            if(role.getName().equals(name)){
-                return role.getId();
-            }
-        }
-        throw new NoSuchElementException("No such role name");
-        //return roleDAO.getIdByRoleName(name);
-    }
 
 }

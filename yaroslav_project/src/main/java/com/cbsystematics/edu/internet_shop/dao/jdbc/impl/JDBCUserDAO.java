@@ -1,7 +1,9 @@
 package com.cbsystematics.edu.internet_shop.dao.jdbc.impl;
 
 import com.cbsystematics.edu.internet_shop.config.JDBCConnector;
+import com.cbsystematics.edu.internet_shop.dao.jdbc.RoleDAO;
 import com.cbsystematics.edu.internet_shop.dao.jdbc.UserDAO;
+import com.cbsystematics.edu.internet_shop.dao.jdbc.UserDetailsDAO;
 import com.cbsystematics.edu.internet_shop.entities.User;
 
 import java.sql.PreparedStatement;
@@ -15,11 +17,23 @@ public class JDBCUserDAO implements UserDAO {
 
     private static final String INSERT_QUERY = "INSERT INTO p_users (id, username, password, role_id, user_details_id) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM p_users";
-    private static final String UPDATE_QUERY = "UPDATE p_users SET username = ?, password = ?, role_id = ?, user_details_id = ? WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE p_users SET username = ?, password = ?, role_id = ? WHERE id = ?";
     private static final String GET_QUERY = "SELECT username, password, role_id, user_details_id FROM p_users WHERE id = %s";
     private static final String DELETE_QUERY = "DELETE FROM p_users WHERE id = %s";
 
-    private static final String GET_DETAILS_ID_BY_ID_QUERY = "SELECT user_details_id FROM p_users WHERE id = %s";
+    private static final String ID = "id";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String ROLE_ID = "role_id";
+    private static final String USER_DETAILS_ID = "user_details_id";
+
+    private UserDetailsDAO userDetailsDAO;
+    private RoleDAO roleDAO;
+
+    public JDBCUserDAO() {
+        this.userDetailsDAO = new JDBCUserDetailsDAO();
+        this.roleDAO = new JDBCRoleDAO();
+    }
 
 
     @Override
@@ -30,13 +44,15 @@ public class JDBCUserDAO implements UserDAO {
             Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                String username = resultSet.getString("username");
-                String password = resultSet.getString("password");
-                int roleId = resultSet.getInt("role_id");
-                int userDetailsId = resultSet.getInt("user_details_id");
+                String username = resultSet.getString(USERNAME);
+                String password = resultSet.getString(PASSWORD);
+                int roleId = resultSet.getInt(ROLE_ID);
+                int userDetailsId = resultSet.getInt(USER_DETAILS_ID);
                 user = new User(id, username, password, roleId, userDetailsId);
             }
             JDBCConnector.close();
+            user.setUserDetails(userDetailsDAO.get(id));
+            user.setRole(roleDAO.get(user.getRoleId()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,12 +63,16 @@ public class JDBCUserDAO implements UserDAO {
     public User create(User user) {
         PreparedStatement statement;
         try {
+            user.getUserDetails().setId(user.getId());
+            userDetailsDAO.create(user.getUserDetails());
+            int roleId = roleDAO.getIdByRoleName(user.getRole().getName());
+            user.setRoleId(roleId);
             statement = JDBCConnector.getConnection().prepareStatement(INSERT_QUERY);
             statement.setInt(1, user.getId());
             statement.setString(2, user.getUsername());
             statement.setString(3, user.getPassword());
             statement.setInt(4, user.getRoleId());
-            statement.setInt(5, user.getUserDetailsId());
+            statement.setInt(5, user.getId());
             statement.executeUpdate();
             JDBCConnector.close();
         } catch (SQLException e) {
@@ -65,13 +85,17 @@ public class JDBCUserDAO implements UserDAO {
     public User update(User user) {
         PreparedStatement statement;
         try {
+            user.getUserDetails().setId(user.getId());
+            userDetailsDAO.update(user.getUserDetails());
+            int roleId = roleDAO.getIdByRoleName(user.getRole().getName());
+            user.setRoleId(roleId);
             statement = JDBCConnector.getConnection().prepareStatement(UPDATE_QUERY);
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setInt(3, user.getRoleId());
-            statement.setInt(4, user.getUserDetailsId());
-            statement.setInt(5, user.getId());
+            statement.setInt(4, user.getId());
             statement.executeUpdate();
+            JDBCConnector.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +109,7 @@ public class JDBCUserDAO implements UserDAO {
             PreparedStatement statement = JDBCConnector.getConnection().prepareStatement(sql);
             statement.executeUpdate();
             JDBCConnector.close();
+            userDetailsDAO.delete(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,12 +122,15 @@ public class JDBCUserDAO implements UserDAO {
             Statement statement = JDBCConnector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_QUERY);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String username = resultSet.getString("username");
-                String password = resultSet.getString("password");
-                int roleId = resultSet.getInt("role_id");
-                int userDetailsId = resultSet.getInt("user_details_id");
-                users.add(new User(id, username, password, roleId, userDetailsId));
+                int id = resultSet.getInt(ID);
+                String username = resultSet.getString(USERNAME);
+                String password = resultSet.getString(PASSWORD);
+                int roleId = resultSet.getInt(ROLE_ID);
+                int userDetailsId = resultSet.getInt(USER_DETAILS_ID);
+                User user = new User(id, username, password, roleId, userDetailsId);
+                user.setUserDetails(userDetailsDAO.get(user.getId()));
+                user.setRole(roleDAO.get(user.getRoleId()));
+                users.add(user);
             }
             JDBCConnector.close();
         } catch (SQLException e) {
@@ -111,20 +139,4 @@ public class JDBCUserDAO implements UserDAO {
         return users;
     }
 
-    @Override
-    public int getDetailsIdById(Integer id) {
-        String sql = String.format(GET_DETAILS_ID_BY_ID_QUERY, id);
-        int userDetailsId = 0;
-        try {
-            Statement statement = JDBCConnector.getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-                userDetailsId = resultSet.getInt("user_details_id");
-             }
-            JDBCConnector.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userDetailsId;
-    }
 }
