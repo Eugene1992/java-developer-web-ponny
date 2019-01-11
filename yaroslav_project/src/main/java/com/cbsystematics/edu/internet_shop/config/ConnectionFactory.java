@@ -6,16 +6,19 @@ import javax.persistence.Persistence;
 
 public class ConnectionFactory {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.cbs.edu.jpa");
-    private static EntityManager em = emf.createEntityManager();
+    private EntityManagerFactory emf;
+    private EntityManager em;
 
+    public ConnectionFactory() {
+        this.emf = Persistence.createEntityManagerFactory("com.cbs.edu.jpa");
+        this.em = emf.createEntityManager();
+    }
 
-    public static EntityManager getEntityManager(){
+    public EntityManager getEntityManager(){
         return em;
     }
 
-
-    public static void close() {
+    public void close() {
         em.close();
         emf.close();
     }

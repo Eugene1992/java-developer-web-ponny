@@ -12,11 +12,16 @@ import java.util.List;
 
 public class AbstractDAOImpl<T extends AbstractEntity> implements DAO<T> {
 
-    private EntityManager em = ConnectionFactory.getEntityManager();
+    private ConnectionFactory cf;
+    private EntityManager em;
+
+    AbstractDAOImpl() {
+        this.cf = new ConnectionFactory();
+        this.em = cf.getEntityManager();
+    }
 
 
     private static final String GET_ALL_QUERY = "select * from %S";
-
 
     @Override
     public T get(Integer id, Class<T> clazz) {
