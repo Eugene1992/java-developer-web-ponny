@@ -23,6 +23,6 @@ public class Order extends AbstractEntity{
     private Date orderDate;
 
     @OneToMany
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "products_id")
     private List<Product> products;
 }

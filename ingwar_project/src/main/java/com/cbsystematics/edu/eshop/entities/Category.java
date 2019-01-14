@@ -19,8 +19,8 @@ public class Category extends AbstractEntity {
 
     @ManyToMany()
     @JoinTable(name = "categories_products",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+            joinColumns = @JoinColumn(name = "categories_id"),
+            inverseJoinColumns = @JoinColumn(name = "products_id"))
     private List<Product> products;
 
     @ManyToMany()

@@ -23,6 +23,6 @@ public class Product extends AbstractEntity{
     private List<Category> categories;
 
     @OneToMany
-    @JoinColumn(name = "dscount_id")
+    @JoinColumn(name = "discounts_id")
     private List<Discount> discounts;
 }
