@@ -20,15 +20,15 @@ public class User extends AbstractEntity {
     private String firstName;
     private String lastName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_details_id")
     private UserDetails userDetails;
 
     @OneToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "roles_id")
     private Role role;
 
     @OneToMany
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "orders_id")
     private List<Order> orders;
 }
