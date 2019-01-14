@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,16 +17,22 @@
 </head>
 <body>
 
-<jsp:include page="./header.jsp" />
+<jsp:include page="./header.jsp"/>
 
 <main>
     <div class="container">
         <br>
+        <br>
+        <br>
         <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#users" role="tab" aria-controls="home"
-                   aria-selected="true"><i class="fa fa-user fa-fw fa-lg"></i>Users</a>
-            </li>
+            <c:if test="${sessionScope.user.role.name = 'ADMIN'}">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#users" role="tab"
+                       aria-controls="home"
+                       aria-selected="true"><i class="fa fa-user fa-fw fa-lg"></i>Users</a>
+                </li>
+            </c:if>
+
             <li class="nav-item">
                 <a class="nav-link" id="discount-tab" data-toggle="tab" href="#products" role="tab"
                    aria-controls="contact" aria-selected="false">Products</a>

@@ -15,4 +15,6 @@ public interface IUserService {
     List<User> getAllUsers();
 
     void deleteUser(Integer id);
+
+    User getByUsernameAndPassword(String username, String password);
 }

@@ -1,6 +1,5 @@
 package com.cbs.edu.eshop.dao.impl;
 
-import com.cbs.edu.eshop.config.ConnectionFactory;
 import com.cbs.edu.eshop.config.JPAUtil;
 import com.cbs.edu.eshop.dao.IUserDAO;
 import com.cbs.edu.eshop.entity.User;
@@ -44,5 +43,13 @@ public class IUserDAOImpl implements IUserDAO<User> {
     @Override
     public List<User> getAll() {
         return entityManager.createQuery("select u from User u").getResultList();
+    }
+
+    @Override
+    public User getByUsernameAndPassword(String username, String password) {
+        return (User) entityManager.createQuery("select u from User u where u.username =:username and u.password =:password")
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .getSingleResult();
     }
 }

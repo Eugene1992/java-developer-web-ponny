@@ -33,8 +33,7 @@ public class IUserServiceImpl implements IUserService {
                 userDTO.getPassword()
         );
 
-        Role userRole = roleService.getRole(RoleEnum.USER.getRole().getId());
-
+        Role userRole = roleService.getRoleByName(RoleEnum.USER.getRole().getName());
         user.setRole(userRole);
 
         return userDAO.create(user);
@@ -58,5 +57,10 @@ public class IUserServiceImpl implements IUserService {
     @Override
     public void deleteUser(Integer id) {
         userDAO.delete(id);
+    }
+
+    @Override
+    public User getByUsernameAndPassword(String username, String password) {
+        return userDAO.getByUsernameAndPassword(username, password);
     }
 }

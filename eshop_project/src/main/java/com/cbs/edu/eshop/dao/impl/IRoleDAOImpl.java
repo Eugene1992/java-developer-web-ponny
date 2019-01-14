@@ -12,7 +12,14 @@ public class IRoleDAOImpl implements IRoleDAO<Role> {
     private EntityManager entityManager;
 
     public IRoleDAOImpl() {
-        this.entityManager = JPAUtil.getEntityManager("com.cbs.edu.jpa");
+        this.entityManager = JPAUtil.getEntityManager();
+    }
+
+    @Override
+    public Role getRoleByName(String name) {
+        return (Role) entityManager.createQuery("select r from Role r where r.name =:name")
+                .setParameter("name", name)
+                .getSingleResult();
     }
 
     @Override

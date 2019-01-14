@@ -1,8 +1,8 @@
 package com.cbs.edu.eshop.entity;
 
 public enum RoleEnum {
-    USER(new Role(0, "USER")),
-    ADMIN(new Role(1, "ADMIN"));
+    USER(new Role("USER")),
+    ADMIN(new Role("ADMIN"));
 
     private Role role;
 

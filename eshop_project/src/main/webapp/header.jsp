@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.cbs.edu.eshop.entity.User" %>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="/"><i class="fa fa-shopping-cart fa-fw fa-lg theme-blue"></i>eShop</a>
@@ -21,6 +23,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin">Admin</a>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <c:if test="${sessionScope.user != null}">
+                    <li>Welcome, <%=((User)request.getSession().getAttribute("user")).getUsername()%></li>
+                </c:if>
             </ul>
             <div class="dropdown margin-left-10">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -76,16 +83,19 @@
                     </div>
                 </div>
             </div>
-            <div class="dropdown margin-left-10">
-                <a href="/registration">
-                    <button class="btn btn-success" type="button">
-                        <i class="fa fa-user fa-fw fa-lg"></i>Sign up
+
+            <c:if test="${sessionScope.user == null}">
+                <div class="dropdown margin-left-10">
+                    <a href="/registration">
+                        <button class="btn btn-success" type="button">
+                            <i class="fa fa-user fa-fw fa-lg"></i>Sign up
+                        </button>
+                    </a>
+                    <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#loginModal">
+                        <i class="fa fa-user fa-fw fa-lg"></i>Sign In
                     </button>
-                </a>
-                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#loginModal">
-                    <i class="fa fa-user fa-fw fa-lg"></i>Sign In
-                </button>
-            </div>
+                </div>
+            </c:if>
         </div>
     </nav>
     <div class="collapse" id="navbarToggleExternalContent">
@@ -138,21 +148,21 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header login-modal-header">
-                    <h5 class="modal-title">Log In</h5>
+                    <h5 class="modal-title">Sign In</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    <form class="form" role="form">
+                    <form class="form" role="form" method="POST" action="login">
                         <div class="form-group">
-                            <input id="emailInput" placeholder="Email" class="form-control form-control-sm"
+                            <input name="username" placeholder="username" class="form-control form-control-sm"
                                    type="text" required="">
                         </div>
                         <div class="form-group">
-                            <input id="passwordInput" placeholder="Password"
-                                   class="form-control form-control-sm" type="text" required="">
+                            <input name="password" placeholder="Password"
+                                   class="form-control form-control-sm" type="password" required="">
                         </div>
                         <div class="form-group form-group-non-margin">
                             <button type="submit" class="btn btn-primary btn-sm btn-block">Login</button>

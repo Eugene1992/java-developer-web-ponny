@@ -15,8 +15,8 @@ public class IRoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public Role getRole(Integer id) {
-        return roleDAO.get(id);
+    public Role getRoleByName(String name) {
+        return roleDAO.getRoleByName(name);
     }
 
     @Override
