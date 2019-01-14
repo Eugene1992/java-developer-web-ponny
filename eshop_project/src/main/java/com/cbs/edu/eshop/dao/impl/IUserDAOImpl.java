@@ -1,7 +1,8 @@
-package com.cbs.edu.eshop.dao;
+package com.cbs.edu.eshop.dao.impl;
 
 import com.cbs.edu.eshop.config.ConnectionFactory;
 import com.cbs.edu.eshop.config.JPAUtil;
+import com.cbs.edu.eshop.dao.IUserDAO;
 import com.cbs.edu.eshop.entity.User;
 
 import javax.persistence.EntityManager;

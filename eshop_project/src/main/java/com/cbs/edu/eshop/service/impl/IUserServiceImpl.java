@@ -1,17 +1,22 @@
-package com.cbs.edu.eshop.service;
+package com.cbs.edu.eshop.service.impl;
 
-import com.cbs.edu.eshop.dao.IUserDAOImpl;
+import com.cbs.edu.eshop.dao.impl.IUserDAOImpl;
 import com.cbs.edu.eshop.dto.CreateUserDTO;
+import com.cbs.edu.eshop.entity.Role;
+import com.cbs.edu.eshop.entity.RoleEnum;
 import com.cbs.edu.eshop.entity.User;
+import com.cbs.edu.eshop.service.IUserService;
 
 import java.util.List;
 
 public class IUserServiceImpl implements IUserService {
 
     private IUserDAOImpl userDAO;
+    private IRoleServiceImpl roleService;
 
     public IUserServiceImpl() {
         this.userDAO = new IUserDAOImpl();
+        this.roleService = new IRoleServiceImpl();
     }
 
     @Override
@@ -27,6 +32,10 @@ public class IUserServiceImpl implements IUserService {
                 userDTO.getEmail(),
                 userDTO.getPassword()
         );
+
+        Role userRole = roleService.getRole(RoleEnum.USER.getRole().getId());
+
+        user.setRole(userRole);
 
         return userDAO.create(user);
     }

@@ -1,17 +1,14 @@
 package com.cbs.edu.eshop.servlets;
 
 import com.cbs.edu.eshop.dto.CreateUserDTO;
-import com.cbs.edu.eshop.entity.User;
 import com.cbs.edu.eshop.service.IUserService;
-import com.cbs.edu.eshop.service.IUserServiceImpl;
+import com.cbs.edu.eshop.service.impl.IUserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static com.cbs.edu.eshop.entity.RoleEnum.USER;
 
 public class UserRegisterServlet extends HttpServlet {
 

@@ -6,6 +6,7 @@ import javax.persistence.Persistence;
 
 public class JPAUtil {
     private static EntityManagerFactory emFactory;
+    private static EntityManager entityManager;
 
     public static EntityManager getEntityManager(String name) {
         if (emFactory == null) {
@@ -15,8 +16,13 @@ public class JPAUtil {
                 e.printStackTrace();
             }
         }
+        entityManager = emFactory.createEntityManager();
 
-        return emFactory.createEntityManager();
+        return entityManager;
+    }
+
+    public static EntityManager getEntityManager() {
+        return entityManager;
     }
 
     public static EntityManagerFactory getEntityManagerFactory() {
@@ -24,6 +30,7 @@ public class JPAUtil {
     }
 
     public static void close() {
+        entityManager.close();
         emFactory.close();
     }
 }

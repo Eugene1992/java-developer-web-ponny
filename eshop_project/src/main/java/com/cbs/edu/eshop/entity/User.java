@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "eshop_users", uniqueConstraints = {
-        @UniqueConstraint(name = "NOT NULL", columnNames = {"first_name", "last_name"})
-})
+@Table(name = "eshop_users")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor

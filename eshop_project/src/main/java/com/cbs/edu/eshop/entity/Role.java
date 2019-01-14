@@ -19,4 +19,9 @@ public class Role extends AbstractEntity {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    public Role(Integer id, String name) {
+        super(id);
+        this.name = name;
+    }
 }

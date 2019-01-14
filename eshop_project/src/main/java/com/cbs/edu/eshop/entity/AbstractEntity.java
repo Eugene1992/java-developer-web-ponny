@@ -1,11 +1,13 @@
 package com.cbs.edu.eshop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 @Data
+@NoArgsConstructor
 public class AbstractEntity {
 
     @Id
@@ -14,4 +16,8 @@ public class AbstractEntity {
 
     @Version
     protected Integer version;
+
+    public AbstractEntity(Integer id) {
+        this.id = id;
+    }
 }

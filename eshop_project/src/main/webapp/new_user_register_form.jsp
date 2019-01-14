@@ -31,7 +31,7 @@
                         Registration
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form method="POST" action="registration">
                             <div class="row">
                                 <div class="form-group col-lg-6">
                                     <label for="first_name">First name</label>
