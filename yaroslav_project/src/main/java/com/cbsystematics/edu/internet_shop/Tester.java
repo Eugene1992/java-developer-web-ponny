@@ -1,14 +1,17 @@
 package com.cbsystematics.edu.internet_shop;
 
-import com.cbsystematics.edu.internet_shop.dao.jdbc.ProductDAO;
-import com.cbsystematics.edu.internet_shop.dao.jdbc.impl.JDBCProductDAO;
-import com.cbsystematics.edu.internet_shop.entities.Product;
+
+import com.cbsystematics.edu.internet_shop.dao.UserDAO;
+import com.cbsystematics.edu.internet_shop.dao.impl.UserDAOImpl;
+import com.cbsystematics.edu.internet_shop.entities.User;
 
 public class Tester {
     public static void main(String[] args) {
 
-        ProductDAO productDAO = new JDBCProductDAO();
-        productDAO.create(new Product(1, "Iphone", "ewfeferfefrf", "smartphone", 3000));
+        UserDAO userDAO = new UserDAOImpl();
+        userDAO.create(new User("QWER", "nm h"));
+        //ProductDAO productDAO = new ProductDAOImpl();
+        //productDAO.create(new Product(1, "Iphone", "ewfeferfefrf", "smartphone", 3000));
 
         //RoleDAO roleDAO = new RoleDAOImpl();
         //Role user = new Role("user");

@@ -4,7 +4,7 @@ import com.cbsystematics.edu.internet_shop.entities.Role;
 import com.cbsystematics.edu.internet_shop.entities.User;
 import com.cbsystematics.edu.internet_shop.entities.UserDetails;
 import com.cbsystematics.edu.internet_shop.service.IUserService;
-import com.cbsystematics.edu.internet_shop.service.UserService;
+import com.cbsystematics.edu.internet_shop.service.impl.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,14 +28,14 @@ public class UserServlet extends HttpServlet {
                 case "delete": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        service.delete(Integer.parseInt(idParam));
+                        service.deleteUser(Integer.parseInt(idParam));
                     }
                     break;
                 }
                 case "update": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        User updUser = (User) service.get(Integer.parseInt(idParam));
+                        User updUser = service.getUser(Integer.parseInt(idParam));
                         req.setAttribute("updUser", updUser);
                         req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
                     }
@@ -44,7 +44,7 @@ public class UserServlet extends HttpServlet {
             }
         }
 
-        req.setAttribute("users", service.getAll());
+        req.setAttribute("users", service.getAllUsers());
         req.getRequestDispatcher("/users.jsp").forward(req, resp);
     }
 
@@ -67,15 +67,15 @@ public class UserServlet extends HttpServlet {
             user = new User(id, username, password);
             user.setUserDetails(new UserDetails(firstName, lastName, email, phone));
             user.setRole(new Role(roleName));
-            service.update(user);
+            service.updateUser(user);
         } else {
             user = new User(username, password);
             user.setUserDetails(new UserDetails(firstName, lastName, email, phone));
             user.setRole(new Role(roleName));
-            service.create(user);
+            service.createUser(user);
         }
 
-        req.setAttribute("users", service.getAll());
+        req.setAttribute("users", service.getAllUsers());
         req.getRequestDispatcher("/users.jsp").forward(req, resp);
     }
 }

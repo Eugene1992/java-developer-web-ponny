@@ -1,17 +1,18 @@
-package com.cbsystematics.edu.internet_shop.service;
+package com.cbsystematics.edu.internet_shop.service.impl;
 
-import com.cbsystematics.edu.internet_shop.dao.jdbc.UserDetailsDAO;
-import com.cbsystematics.edu.internet_shop.dao.jdbc.impl.JDBCUserDetailsDAO;
+import com.cbsystematics.edu.internet_shop.dao.UserDetailsDAO;
+import com.cbsystematics.edu.internet_shop.dao.impl.UserDetailsDAOImpl;
 import com.cbsystematics.edu.internet_shop.entities.UserDetails;
+import com.cbsystematics.edu.internet_shop.service.IUserDetailsService;
 
 import java.util.List;
 
-public class UserDetailsService extends AbstractService implements IUserDetailsService {
+public class UserDetailsService implements IUserDetailsService {
 
     private UserDetailsDAO userDetailsDAO;
 
     public UserDetailsService() {
-        this.userDetailsDAO = new JDBCUserDetailsDAO();
+        this.userDetailsDAO = new UserDetailsDAOImpl();
     }
 
     @Override
@@ -36,7 +37,6 @@ public class UserDetailsService extends AbstractService implements IUserDetailsS
 
     @Override
     public UserDetails create(UserDetails userDetails) {
-        userDetails.setId(getNextIdForNewElem(userDetailsDAO.getAll()));
         userDetailsDAO.create(userDetails);
         return userDetails;
     }

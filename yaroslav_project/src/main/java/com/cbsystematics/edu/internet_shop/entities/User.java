@@ -1,84 +1,49 @@
 package com.cbsystematics.edu.internet_shop.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.EqualsAndHashCode;
-//import lombok.NoArgsConstructor;
-//
-//import javax.persistence.*;
-//
-@Data
-@NoArgsConstructor
+import javax.persistence.*;
+import java.util.List;
 
-//@Entity
-//@Table(name = "p_users")
+@Entity
+@Table(name = "eshop_users")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class User extends AbstractEntity {
 
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
-    private Integer roleId;
-
-    private Integer userDetailsId;
 
 
-    //@OneToOne
-    //@JoinColumn(name = "user_details_id")
+    @OneToOne
+    @JoinColumn(name = "user_details_id")
     private UserDetails userDetails;
 
 
-    //@ManyToOne
-    //@JoinColumn(name = "role_id")
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
 
-    //@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    //private List<Order> orders;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Order> orders;
 
-
-    public User(Integer id, String username, String password, Integer roleId, Integer userDetailsId) {
-        this.id = id;
-        this.version = 0;
-        this.username = username;
-        this.password = password;
-        this.roleId = roleId;
-        this.userDetailsId = userDetailsId;
-    }
-
-    public User(Integer id, String username, String password) {
-        this.id = id;
-        this.version = 0;
-        this.username = username;
-        this.password = password;
-    }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-
-    public String getFirstName() {
-        return userDetails.getFirstName();
-    }
-
-    public String getLastName() {
-        return userDetails.getLastName();
-    }
-
-    public String getEmail() {
-        return userDetails.getEmail();
-    }
-
-    public String getPhone() {
-        return userDetails.getPhone();
-    }
-
-    public String getRoleName() {
-        return role.getName();
+    public User(int id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
 }

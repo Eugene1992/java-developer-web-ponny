@@ -3,7 +3,7 @@ package com.cbsystematics.edu.internet_shop.servlets;
 
 import com.cbsystematics.edu.internet_shop.entities.Product;
 import com.cbsystematics.edu.internet_shop.service.IProductService;
-import com.cbsystematics.edu.internet_shop.service.ProductService;
+import com.cbsystematics.edu.internet_shop.service.impl.ProductService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +34,7 @@ public class ProductServlet extends HttpServlet {
                 case "update": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        Product updProduct = (Product) service.get(Integer.parseInt(idParam));
+                        Product updProduct = service.get(Integer.parseInt(idParam));
                         req.setAttribute("updProduct", updProduct);
                         req.getRequestDispatcher("/new_product.jsp").forward(req, resp);
                     }

@@ -30,19 +30,19 @@
                         </div>
                         <div class="form-group offset-lg-1 col-lg-4 offset-md-1 col-md-4">
                             <label for="email">Email:</label>
-                            <input name="email" type="text" class="form-control" id="email" value="${updUser.getEmail()}">
+                            <input name="email" type="text" class="form-control" id="email" value="${updUser.userDetails.email}">
                         </div>
                         <div class="form-group offset-lg-1 col-lg-4 offset-md-1 col-md-4">
                             <label for="firstName">First Name:</label>
-                            <input name="firstName" type="text" class="form-control" id="firstName" value="${updUser.getFirstName()}">
+                            <input name="firstName" type="text" class="form-control" id="firstName" value="${updUser.userDetails.firstName}">
                         </div>
                         <div class="form-group offset-lg-1 col-lg-4 offset-md-1 col-md-4">
                             <label for="lastName">Last Name:</label>
-                            <input name="lastName" type="text" class="form-control" id="lastName" value="${updUser.getLastName()}">
+                            <input name="lastName" type="text" class="form-control" id="lastName" value="${updUser.userDetails.lastName}">
                         </div>
                         <div class="form-group offset-lg-1 col-lg-4 offset-md-1 col-md-4">
                             <label for="phone">Phone:</label>
-                            <input name="phone" type="text" class="form-control" id="phone" value="${updUser.getPhone()}">
+                            <input name="phone" type="text" class="form-control" id="phone" value="${updUser.userDetails.phone}">
                         </div>
                         <div class="form-group offset-lg-1 col-lg-4 offset-md-1 col-md-4">
                             <label for="password">Password:</label>
@@ -53,9 +53,9 @@
                         <div class="form-group offset-lg-1 col-lg-8">
                             <label for="role">Role:</label>
                             <select name="role" class="form-control" id="role">
-                                <option <c:if test="${updUser.getRoleName() == 'Admin'}">selected</c:if>>Admin</option>
-                                <option <c:if test="${updUser.getRoleName() == 'Moderator'}">selected</c:if>>Moderator</option>
-                                <option <c:if test="${updUser.getRoleName() == 'User'}">selected</c:if>>User</option>
+                                <option <c:if test="${updUser.role.name == 'Admin'}">selected</c:if>>Admin</option>
+                                <option <c:if test="${updUser.role.name == 'Moderator'}">selected</c:if>>Moderator</option>
+                                <option <c:if test="${updUser.role.name == 'User'}">selected</c:if>>User</option>
                             </select>
                         </div>
                     </div>

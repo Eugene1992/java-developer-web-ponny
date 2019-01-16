@@ -55,19 +55,19 @@
                                         ${user.id}
                                 </td>
                                 <td>
-                                        ${user.getRoleName()}
+                                        ${user.role.name}
                                 </td>
                                 <td>
                                         ${user.username}
                                 </td>
                                 <td>
-                                        ${user.getFirstName()}
+                                        ${user.userDetails.firstName}
                                 </td>
                                 <td>
-                                        ${user.getLastName()}
+                                        ${user.userDetails.lastName}
                                 </td>
                                 <td>
-                                        ${user.getEmail()}
+                                        ${user.userDetails.email}
                                 </td>
                                 <td class="table-btn-col">
                                     <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>

@@ -1,17 +1,19 @@
-package com.cbsystematics.edu.internet_shop.service;
+package com.cbsystematics.edu.internet_shop.service.impl;
 
-import com.cbsystematics.edu.internet_shop.dao.jdbc.DiscountDAO;
-import com.cbsystematics.edu.internet_shop.dao.jdbc.impl.JDBCDiscountDAO;
+import com.cbsystematics.edu.internet_shop.dao.DiscountDAO;
+import com.cbsystematics.edu.internet_shop.dao.impl.DiscountDAOImpl;
 import com.cbsystematics.edu.internet_shop.entities.Discount;
+import com.cbsystematics.edu.internet_shop.service.IDiscountService;
 
 import java.util.List;
 
-public class DiscountService extends AbstractService implements IDiscountService {
+
+public class DiscountService implements IDiscountService {
 
     private DiscountDAO discountDAO;
 
     public DiscountService() {
-        this.discountDAO = new JDBCDiscountDAO();
+        this.discountDAO = new DiscountDAOImpl();
     }
 
     @Override
@@ -36,9 +38,10 @@ public class DiscountService extends AbstractService implements IDiscountService
 
     @Override
     public Discount create(Discount discount) {
-        discount.setId(getNextIdForNewElem(discountDAO.getAll()));
         discountDAO.create(discount);
         return discount;
     }
+
+
 
 }

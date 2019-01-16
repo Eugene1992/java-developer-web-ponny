@@ -6,13 +6,7 @@ import java.util.List;
 
 public interface IRoleService {
 
-    List<Role> getAll();
+    Role getRoleByName(String name);
 
-    Role get(Integer id);
-
-    void delete(Integer id);
-
-    void update(Role role);
-
-    Role create(Role role);
+    List<Role> getAllRoles();
 }

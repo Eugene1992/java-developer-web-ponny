@@ -1,17 +1,18 @@
-package com.cbsystematics.edu.internet_shop.service;
+package com.cbsystematics.edu.internet_shop.service.impl;
 
-import com.cbsystematics.edu.internet_shop.dao.jdbc.ProductDAO;
-import com.cbsystematics.edu.internet_shop.dao.jdbc.impl.JDBCProductDAO;
+import com.cbsystematics.edu.internet_shop.dao.ProductDAO;
+import com.cbsystematics.edu.internet_shop.dao.impl.ProductDAOImpl;
 import com.cbsystematics.edu.internet_shop.entities.Product;
+import com.cbsystematics.edu.internet_shop.service.IProductService;
 
 import java.util.List;
 
-public class ProductService extends AbstractService implements IProductService {
+public class ProductService implements IProductService {
 
     private ProductDAO productDAO;
 
     public ProductService() {
-        this.productDAO = new JDBCProductDAO();
+        this.productDAO = new ProductDAOImpl();
     }
 
     @Override
@@ -36,7 +37,6 @@ public class ProductService extends AbstractService implements IProductService {
 
     @Override
     public Product create(Product product) {
-        product.setId(getNextIdForNewElem(productDAO.getAll()));
         productDAO.create(product);
         return product;
     }

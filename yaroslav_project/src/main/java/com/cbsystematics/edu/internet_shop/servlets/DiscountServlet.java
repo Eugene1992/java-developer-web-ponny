@@ -2,7 +2,7 @@ package com.cbsystematics.edu.internet_shop.servlets;
 
 
 import com.cbsystematics.edu.internet_shop.entities.Discount;
-import com.cbsystematics.edu.internet_shop.service.DiscountService;
+import com.cbsystematics.edu.internet_shop.service.impl.DiscountService;
 import com.cbsystematics.edu.internet_shop.service.IDiscountService;
 
 import javax.servlet.ServletException;
@@ -35,7 +35,7 @@ public class DiscountServlet extends HttpServlet {
                 case "update": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        Discount updDiscount = (Discount) service.get(Integer.parseInt(idParam));
+                        Discount updDiscount = service.get(Integer.parseInt(idParam));
                         req.setAttribute("updDiscount", updDiscount);
                         req.getRequestDispatcher("/new_discount.jsp").forward(req, resp);
                     }
