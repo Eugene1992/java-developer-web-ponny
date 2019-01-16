@@ -28,35 +28,30 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User create(User user) {
         EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
+        transaction.begin();
 
-            em.persist(user);
+        em.persist(user.getUserDetails());
+        em.persist(user);
 
-            transaction.commit();
-        } catch (Exception e) {
-            transaction.rollback();
-        }
+        transaction.commit();
+
         return user;
     }
 
     @Override
     public User update(User user) {
         EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
+        transaction.begin();
 
-            User oldUser = em.find(User.class, user.getId());
-            oldUser.setPassword(user.getPassword());
-            oldUser.setUsername(user.getUsername());
-            oldUser.setRole(user.getRole());
-            oldUser.setUserDetails(user.getUserDetails());
-            em.merge(user);
+        User oldUser = em.find(User.class, user.getId());
+        oldUser.setPassword(user.getPassword());
+        oldUser.setUsername(user.getUsername());
+        oldUser.setRole(user.getRole());
+        oldUser.setUserDetails(user.getUserDetails());
+        em.merge(oldUser);
 
-            transaction.commit();
-        } catch (Exception e) {
-            transaction.rollback();
-        }
+        transaction.commit();
+
         return user;
     }
 

@@ -23,7 +23,7 @@ public class User extends AbstractEntity {
 
 
     @OneToOne
-    @JoinColumn(name = "user_details_id")
+    @JoinColumn(name = "user_details_id", unique = true)
     private UserDetails userDetails;
 
 

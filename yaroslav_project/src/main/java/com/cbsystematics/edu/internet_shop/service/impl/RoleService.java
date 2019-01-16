@@ -19,7 +19,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role getRoleByName(String name) {
-        return null;
+        return roleDAO.getRoleByName(name);
     }
 
     @Override

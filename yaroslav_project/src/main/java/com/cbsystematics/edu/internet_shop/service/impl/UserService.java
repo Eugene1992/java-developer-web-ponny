@@ -2,7 +2,9 @@ package com.cbsystematics.edu.internet_shop.service.impl;
 
 import com.cbsystematics.edu.internet_shop.dao.UserDAO;
 import com.cbsystematics.edu.internet_shop.dao.impl.UserDAOImpl;
+import com.cbsystematics.edu.internet_shop.entities.Role;
 import com.cbsystematics.edu.internet_shop.entities.User;
+import com.cbsystematics.edu.internet_shop.entities.UserDetails;
 import com.cbsystematics.edu.internet_shop.service.IUserService;
 
 import java.util.List;
@@ -31,7 +33,6 @@ public class UserService implements IUserService {
 
     @Override
     public void deleteUser(Integer id) {
-        userDetailsService.delete(userDAO.getUserDetailsIdByUserId(id));
         userDAO.delete(id);
     }
 
@@ -42,15 +43,22 @@ public class UserService implements IUserService {
 
     @Override
     public User updateUser(User user) {
-        int userDetailsId = userDAO.getUserDetailsIdByUserId(user.getId());
-        userDetailsService.update(userDetailsService.get(userDetailsId));
+        Role userRole = roleService.getRoleByName(user.getRole().getName());
+        user.setRole(userRole);
+        UserDetails userDetails = userDetailsService.get(user.getId());
+        user.setUserDetails(userDetails);
+        //userDetailsService.update(userDetailsService.get(userDetailsId));
         userDAO.update(user);
         return user;
     }
 
     @Override
     public User createUser(User user) {
-        //userDetailsService.create(user.getUserDetails());
+        Role userRole = roleService.getRoleByName(user.getRole().getName());
+        //System.out.println("==========" + userRole.getName());
+        user.setRole(userRole);
+        UserDetails userDetails = user.getUserDetails();
+        user.setUserDetails(userDetails);
         userDAO.create(user);
         return user;
     }
