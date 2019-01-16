@@ -249,7 +249,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="input-group margin-top-bottom-15">
-                            <a href="/new_user_form">
+                            <a href="/admin/products?action=create">
                                 <button class="btn btn-success" type="button">New Product</button>
                             </a>
                         </div>
