@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,9 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
+    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">--%>
+    <jsp:include page="./styles.jsp" />
 
     <title>eShop</title>
 
@@ -22,17 +22,11 @@
 <main>
     <div class="container">
         <br>
-        <br>
-        <br>
         <ul class="nav nav-tabs">
-            <c:if test="${sessionScope.user.role.name = 'ADMIN'}">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#users" role="tab"
-                       aria-controls="home"
-                       aria-selected="true"><i class="fa fa-user fa-fw fa-lg"></i>Users</a>
-                </li>
-            </c:if>
-
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#users" role="tab" aria-controls="home"
+                   aria-selected="true"><i class="fa fa-user fa-fw fa-lg"></i>Users</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" id="discount-tab" data-toggle="tab" href="#products" role="tab"
                    aria-controls="contact" aria-selected="false">Products</a>
@@ -177,9 +171,9 @@
                     <div class="col-lg-4">
                         <div class="input-group margin-top-bottom-15">
                             <input type="text" class="form-control" placeholder=" Search by username"
-                                   aria-label="Username" aria-describedby="button-addon2">
+                                   aria-label="Username" aria-describedby="button-addon3">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Search
                                 </button>
                             </div>
                         </div>
@@ -355,6 +349,5 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="scripts.js"></script>
 </body>
 </html>
