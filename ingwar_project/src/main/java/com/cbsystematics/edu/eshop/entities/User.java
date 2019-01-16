@@ -15,9 +15,14 @@ import java.util.List;
 @Entity
 @Table(name = "shop_users")
 public class User extends AbstractEntity {
+
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

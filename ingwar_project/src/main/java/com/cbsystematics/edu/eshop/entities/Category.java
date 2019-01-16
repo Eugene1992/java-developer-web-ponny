@@ -15,6 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 public class Category extends AbstractEntity {
+
+    @Column(nullable = false)
     private String name;
 
     @ManyToMany()

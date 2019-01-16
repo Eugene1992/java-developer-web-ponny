@@ -5,8 +5,6 @@
     <persistence-unit name="com.cbsystematics.edu.eshop">
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <!--<property name="javax.persistence.jdbc.user" value="postgres" />-->
-            <!--<property name="javax.persistence.jdbc.password" value="root" />-->
             <property name="javax.persistence.jdbc.user" value="ifbgsxaraayrww" />
             <property name="javax.persistence.jdbc.password" value="568b98fa7c19c03f26ca6639bd55f44fa7ffea82833b811b5d77c2cf3acf0ebc" />
             <!--<property name="javax.persistence.sql-load-script-source" value="META-INF/data.sql"/>-->
@@ -15,8 +13,6 @@
             <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
             <!--<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>-->
             <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-54-75-231-3.eu-west-1.compute.amazonaws.com:5432/d6uec6io8jv4i5?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
-            <!--<property name="hibernate.connection.username" value="ifbgsxaraayrww"/>-->
-            <!--<property name="hibernate.connection.password" value="568b98fa7c19c03f26ca6639bd55f44fa7ffea82833b811b5d77c2cf3acf0ebc"/>-->
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
 
