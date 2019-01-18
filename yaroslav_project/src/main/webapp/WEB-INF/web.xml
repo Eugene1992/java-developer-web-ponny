@@ -43,22 +43,62 @@
 
 
     <servlet>
-        <servlet-name>AdminController</servlet-name>
-        <servlet-class>com.cbsystematics.edu.internet_shop.servlets.zhenia.AdminController</servlet-class>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.cbsystematics.edu.internet_shop.servlets.AdminServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdminController</servlet-name>
+        <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
 
     <servlet>
-        <servlet-name>NewUserFormController</servlet-name>
-        <servlet-class>com.cbsystematics.edu.internet_shop.servlets.zhenia.NewUserFormController</servlet-class>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>com.cbsystematics.edu.internet_shop.servlets.HomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NewUserFormController</servlet-name>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>NewUserServlet</servlet-name>
+        <servlet-class>com.cbsystematics.edu.internet_shop.servlets.NewUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewUserServlet</servlet-name>
         <url-pattern>/admin/users/new</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>NewDiscountServlet</servlet-name>
+        <servlet-class>com.cbsystematics.edu.internet_shop.servlets.NewDiscountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewDiscountServlet</servlet-name>
+        <url-pattern>/admin/discounts/new</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+    <servlet-name>NewProductServlet</servlet-name>
+    <servlet-class>com.cbsystematics.edu.internet_shop.servlets.NewProductServlet</servlet-class>
+</servlet>
+    <servlet-mapping>
+        <servlet-name>NewProductServlet</servlet-name>
+        <url-pattern>/admin/products/new</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UserRegisterServlet</servlet-name>
+        <servlet-class>com.cbsystematics.edu.internet_shop.servlets.UserRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRegisterServlet</servlet-name>
+        <url-pattern>/registration</url-pattern>
     </servlet-mapping>
 
 

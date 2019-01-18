@@ -69,8 +69,13 @@
                 </div>
             </div>
             <div class="dropdown margin-left-10">
+                <a href="/registration">
+                    <button class="btn btn-success" type="button">
+                        <i class="fa fa-user fa-fw fa-lg"></i>Sign up
+                    </button>
+                </a>
                 <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#loginModal">
-                    <i class="fa fa-user fa-fw fa-lg"></i>Log In
+                    <i class="fa fa-user fa-fw fa-lg"></i>Sign In
                 </button>
             </div>
         </div>
