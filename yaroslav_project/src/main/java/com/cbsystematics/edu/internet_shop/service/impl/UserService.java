@@ -7,7 +7,6 @@ import com.cbsystematics.edu.internet_shop.entities.Role;
 import com.cbsystematics.edu.internet_shop.entities.RoleEnum;
 import com.cbsystematics.edu.internet_shop.entities.User;
 import com.cbsystematics.edu.internet_shop.entities.UserDetails;
-import com.cbsystematics.edu.internet_shop.exceptions.WrongPasswordRegisterException;
 import com.cbsystematics.edu.internet_shop.service.IUserService;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getByUsernameAndPassword(String username, String password) {
-        return null;
+        return userDAO.getByUsernameAndPassword(username, password);
     }
 
     @Override
@@ -56,13 +55,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User registerUser(CreateUserDTO userDTO) {
+    public User registerUser(CreateUserDTO userDTO)  {
         if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
-            try {
-                throw new WrongPasswordRegisterException("Введенные пароль и повторный пароль не сходяться.");
-            } catch (WrongPasswordRegisterException e) {
-                e.printStackTrace();
-            }
+            throw new IllegalMonitorStateException("Введенные пароль и повторный пароль не сходяться.");
         }
 
         User user = new User(

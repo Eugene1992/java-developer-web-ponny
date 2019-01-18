@@ -76,9 +76,17 @@ public class UserDAOImpl implements UserDAO {
         return query.getResultList();
     }
 
+
+    //public int getUserDetailsIdByUserId(Integer id) {
+    //    User user = em.find(User.class, id);
+    //    return user.getUserDetails().getId();
+    //}
+
     @Override
-    public int getUserDetailsIdByUserId(Integer id) {
-        User user = em.find(User.class, id);
-        return user.getUserDetails().getId();
+    public User getByUsernameAndPassword(String username, String password) {
+        return (User) em.createQuery("select u from User u where u.username =:username and u.password =:password")
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .getSingleResult();
     }
 }
