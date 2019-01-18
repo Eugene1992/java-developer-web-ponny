@@ -19,6 +19,7 @@
         <module>yaroslav_project</module>
         <module>ingwar_project</module>
         <module>eshop_project</module>
+        <module>spring</module>
     </modules>
     <packaging>pom</packaging>
 

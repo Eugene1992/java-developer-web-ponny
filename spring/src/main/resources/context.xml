@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="provider" class="com.cbs.edu.spring.decoupled_spring.ConsoleMessageProvider"/>
+    <bean id="fileLoaderMessageProvider" class="com.cbs.edu.spring.decoupled_spring.FileLoaderMessageProvider">
+        <constructor-arg value="C:\Users\Evgeniy\Desktop\Новая папка\java-developer-2018-web-ponny\spring\src\main\resources\data.txt"/>
+    </bean>
+    <bean id="renderer" class="com.cbs.edu.spring.decoupled_spring.ConsoleMessageRenderer"/>
+</beans>

@@ -71,8 +71,6 @@
                 <i class="fa fa-apple" aria-hidden="true"></i> Apple products
             </div>
             <div class="card-body row">
-                <%-- https://clipart.info/images/ccovers/1505918647iphone-x-png.png --%>
-                <h1>${errMsg}</h1>
                 <c:forEach var="product" items="${products}">
                     <div class="col-md-4 col-lg-4">
                         <div class="card mb-4 shadow-sm">
