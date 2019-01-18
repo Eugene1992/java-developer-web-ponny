@@ -21,7 +21,7 @@
                     <a class="nav-link" href="#">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
+                    <a class="nav-link" href="/admin/products?action=create">Admin</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

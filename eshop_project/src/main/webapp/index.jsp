@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,7 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
+    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">--%>
+    <jsp:include page="./styles.jsp" />
 
     <title>eShop</title>
 
@@ -69,342 +71,43 @@
                 <i class="fa fa-apple" aria-hidden="true"></i> Apple products
             </div>
             <div class="card-body row">
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             src="https://clipart.info/images/ccovers/1505918647iphone-x-png.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <div class="page-header">
+                <%-- https://clipart.info/images/ccovers/1505918647iphone-x-png.png --%>
+                <c:forEach var = "product" items="${products}">
+                    <div class="col-md-4 col-lg-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img class="card-img-top"
+                                 src="${product.imgUrl}"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <div class="page-header">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h5>${product.title}</h5>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h5>IPhone X 256 GB</h5>
+                                        <h5 class="text-right">
+                                            <span style="font-weight: bold; font-size: 24px">${product.price} UAH</span></h5>
+                                    </div>
+                                </div>
+                                <p class="card-text">${product.description}</p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted"><i class="fa fa-heart" aria-hidden="true"></i> 10</small>
+                                    <small class="text-muted"><i class="fa fa-search" aria-hidden="true"></i> 2340</small>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-info">View details
+                                        </button>
+                                        <a href="/product-cart?action=add&id=${product.id}"><button type="button" class="btn btn-sm btn-success">Add to cart
+                                        </button></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h5 class="text-right">
-                                        <span style="font-weight: bold; font-size: 24px">16899 UAH</span></h5>
-                                </div>
-                            </div>
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted"><i class="fa fa-heart" aria-hidden="true"></i> 10</small>
-                                <small class="text-muted"><i class="fa fa-search" aria-hidden="true"></i> 2340</small>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-info">View details
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-success">Add to cart
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             src="https://clipart.info/images/ccovers/1505918647iphone-x-png.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <div class="page-header">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h5>IPhone X 256 GB</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h5 class="text-right">
-                                        <span style="font-weight: bold; font-size: 24px">14224 UAH</span></h5>
-                                    <h5 class="text-right"><span class="badge badge-pill badge-primary">-20%</span>
-                                        <span style="text-decoration: line-through; color: darkgray">16899 UAH</span>
-                                    </h5>
-                                </div>
-                            </div>
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted"><i class="fa fa-heart" aria-hidden="true"></i> 10</small>
-                                <small class="text-muted"><i class="fa fa-search" aria-hidden="true"></i> 2340</small>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-info">View details
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-success">Add to cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             src="https://clipart.info/images/ccovers/1505918647iphone-x-png.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <div class="page-header">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h5>IPhone X 256 GB</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h5 class="text-right">
-                                        <span style="font-weight: bold; font-size: 24px">16899 UAH</span></h5>
-                                </div>
-                            </div>
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted"><i class="fa fa-heart" aria-hidden="true"></i> 10</small>
-                                <small class="text-muted"><i class="fa fa-search" aria-hidden="true"></i> 2340</small>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-info">View details
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-success">Add to cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             src="https://clipart.info/images/ccovers/1505918647iphone-x-png.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <div class="page-header">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h5>IPhone X 256 GB</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h5 class="text-right">
-                                        <span style="font-weight: bold; font-size: 24px">16899 UAH</span></h5>
-                                </div>
-                            </div>
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted"><i class="fa fa-heart" aria-hidden="true"></i> 10</small>
-                                <small class="text-muted"><i class="fa fa-search" aria-hidden="true"></i> 2340</small>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-info">View details
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-success">Add to cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    <br>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                Some category 2
-            </div>
-            <div class="card-body row">
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                Some category 3
-            </div>
-            <div class="card-body row">
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top"
-                             data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a
-                                natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit
-                                    </button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>

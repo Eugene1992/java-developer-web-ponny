@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
+    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">--%>
+    <jsp:include page="./styles.jsp" />
 
     <title>eShop</title>
 
@@ -22,16 +23,14 @@
 <main>
     <div class="container">
         <br>
-        <br>
-        <br>
         <ul class="nav nav-tabs">
-            <c:if test="${sessionScope.user.role.name = 'ADMIN'}">
+            <%--<c:if test="${sessionScope.user.role.name = 'ADMIN'}">--%>
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#users" role="tab"
                        aria-controls="home"
                        aria-selected="true"><i class="fa fa-user fa-fw fa-lg"></i>Users</a>
                 </li>
-            </c:if>
+            <%--</c:if>--%>
 
             <li class="nav-item">
                 <a class="nav-link" id="discount-tab" data-toggle="tab" href="#products" role="tab"
@@ -255,7 +254,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="input-group margin-top-bottom-15">
-                            <a href="/new_user_form">
+                            <a href="/admin/products?action=create">
                                 <button class="btn btn-success" type="button">New Product</button>
                             </a>
                         </div>
