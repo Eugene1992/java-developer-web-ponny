@@ -18,7 +18,7 @@ public class IProductDAOImpl implements IProductDAO<Product> {
 
     @Override
     public Product get(Integer id) {
-        return null;
+        return entityManager.find(Product.class, id);
     }
 
     @Override

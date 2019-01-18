@@ -72,7 +72,8 @@
             </div>
             <div class="card-body row">
                 <%-- https://clipart.info/images/ccovers/1505918647iphone-x-png.png --%>
-                <c:forEach var = "product" items="${products}">
+                <h1>${errMsg}</h1>
+                <c:forEach var="product" items="${products}">
                     <div class="col-md-4 col-lg-4">
                         <div class="card mb-4 shadow-sm">
                             <img class="card-img-top"
@@ -100,7 +101,7 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-info">View details
                                         </button>
-                                        <a href="/product-cart?action=add&id=${product.id}"><button type="button" class="btn btn-sm btn-success">Add to cart
+                                        <a href="/shopping-cart?action=add&id=${product.id}"><button type="button" class="btn btn-sm btn-success">Add to cart
                                         </button></a>
                                     </div>
                                 </div>
@@ -136,6 +137,5 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="scripts.js"></script>
 </body>
 </html>

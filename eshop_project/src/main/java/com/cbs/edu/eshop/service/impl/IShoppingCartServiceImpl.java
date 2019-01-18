@@ -26,20 +26,9 @@ public class IShoppingCartServiceImpl implements IShoppingCartService {
     public void addToCart(int productId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product product = productService.getProduct(productId);
 
-        Cookie[] cookies = request.getCookies();
-        Cookie shoppingCartCookie;
+        response.addCookie(new Cookie("shopping_cart_products", product.getId().toString()));
 
-        if (cookies != null && cookies.length > 0) {
-            shoppingCartCookie = Arrays.stream(cookies)
-                    .filter(cookie -> cookie.getName().equals("shopping_cart_products"))
-                    .findFirst()
-                    .get();
-        } else {
-            shoppingCartCookie = new Cookie("shopping_cart_products", product.getId().toString());
-        }
-        response.addCookie(shoppingCartCookie);
-
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        response.sendRedirect("/home");
     }
 
     @Override

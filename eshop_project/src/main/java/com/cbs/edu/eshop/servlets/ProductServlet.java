@@ -30,7 +30,7 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
-        if (action.equals("create")) {
+        if (action != null && action.equals("create")) {
             req.getRequestDispatcher("/new_product_form.jsp").forward(req, resp);
         }
 
@@ -48,7 +48,7 @@ public class ProductServlet extends HttpServlet {
             String category = req.getParameter("category");
             String price = req.getParameter("price");
 
-            CreateProductDTO productDTO = new CreateProductDTO(title, description, imgUrl, category, price);
+            CreateProductDTO productDTO = new CreateProductDTO(title, imgUrl, description, category, price);
 
             productService.createProduct(productDTO);
         }

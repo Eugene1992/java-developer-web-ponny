@@ -36,7 +36,7 @@ public class IProductServiceImpl implements IProductService {
 
     @Override
     public Product getProduct(Integer id) {
-        return null;
+        return productDAO.get(id);
     }
 
     @Override
