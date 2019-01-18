@@ -17,7 +17,7 @@
 <body>
 
 <jsp:include page="header.jsp" />
-
+<br><br>
 <main>
     <div class="container">
         <br>
@@ -162,8 +162,8 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="input-group margin-top-bottom-15">
-                            <a href="/admin/users/new">
-                                <button class="btn btn-success" type="button">New User</button>
+                            <a href="/admin/discounts/new">
+                                <button class="btn btn-success" type="button">New Discount</button>
                             </a>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="input-group margin-top-bottom-15">
-                            <a href="/new_user_form">
+                            <a href="/admin/products/new">
                                 <button class="btn btn-success" type="button">New Product</button>
                             </a>
                         </div>

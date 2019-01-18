@@ -2,7 +2,9 @@ package com.cbsystematics.edu.internet_shop.service.impl;
 
 import com.cbsystematics.edu.internet_shop.dao.UserDAO;
 import com.cbsystematics.edu.internet_shop.dao.impl.UserDAOImpl;
+import com.cbsystematics.edu.internet_shop.dto.CreateUserDTO;
 import com.cbsystematics.edu.internet_shop.entities.Role;
+import com.cbsystematics.edu.internet_shop.entities.RoleEnum;
 import com.cbsystematics.edu.internet_shop.entities.User;
 import com.cbsystematics.edu.internet_shop.entities.UserDetails;
 import com.cbsystematics.edu.internet_shop.service.IUserService;
@@ -38,7 +40,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getByUsernameAndPassword(String username, String password) {
-        return null;
+        return userDAO.getByUsernameAndPassword(username, password);
     }
 
     @Override
@@ -53,14 +55,36 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User registerUser(CreateUserDTO userDTO)  {
+        if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+            throw new IllegalMonitorStateException("Введенные пароль и повторный пароль не сходяться.");
+        }
+
+        User user = new User(
+                userDTO.getUsername(),
+                userDTO.getPassword()
+        );
+        UserDetails userDetails = new UserDetails(
+                userDTO.getFirstName(),
+                userDTO.getLastName(),
+                userDTO.getEmail(),
+                userDTO.getPhone());
+        user.setUserDetails(userDetails);
+
+        Role userRole = roleService.getRoleByName(RoleEnum.USER.getRole().getName());
+        user.setRole(userRole);
+
+        return userDAO.create(user);
+    }
+
+    @Override
     public User createUser(User user) {
         Role userRole = roleService.getRoleByName(user.getRole().getName());
         //System.out.println("==========" + userRole.getName());
         user.setRole(userRole);
         UserDetails userDetails = user.getUserDetails();
         user.setUserDetails(userDetails);
-        userDAO.create(user);
-        return user;
+        return userDAO.create(user);
     }
 
 }
