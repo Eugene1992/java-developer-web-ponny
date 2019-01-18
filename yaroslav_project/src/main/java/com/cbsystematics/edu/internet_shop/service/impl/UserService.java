@@ -30,12 +30,16 @@ public class UserService implements IUserService {
 
     @Override
     public User getUser(Integer id) {
-        return userDAO.get(id);
+        User user = userDAO.get(id);
+        //UserDetails userDetails = userDetailsService.get(id);
+        //user.setUserDetails(userDetails);
+        return user;
     }
 
     @Override
     public void deleteUser(Integer id) {
         userDAO.delete(id);
+        userDetailsService.delete(id);
     }
 
     @Override
@@ -47,9 +51,11 @@ public class UserService implements IUserService {
     public User updateUser(User user) {
         Role userRole = roleService.getRoleByName(user.getRole().getName());
         user.setRole(userRole);
-        UserDetails userDetails = userDetailsService.get(user.getId());
-        user.setUserDetails(userDetails);
-        //userDetailsService.update(userDetailsService.get(userDetailsId));
+        UserDetails userDetails = user.getUserDetails();
+        System.out.println(userDetails);
+        //UserDetails userDetails = userDetailsService.get(user.getId());
+        //user.setUserDetails(userDetails);
+        userDetailsService.update(userDetails);
         userDAO.update(user);
         return user;
     }

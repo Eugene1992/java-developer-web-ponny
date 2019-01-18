@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,17 +16,29 @@
 
 </head>
 <body>
+<c:if test="${sessionScope.user.role.name == 'User'}">
+    <%
+        response.sendRedirect("/");
+    %>
+</c:if>
 
-<jsp:include page="header.jsp" />
-<br><br>
+<jsp:include page="./header.jsp"/>
+
 <main>
     <div class="container">
         <br>
+        <br>
+        <br>
         <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#users" role="tab" aria-controls="home"
-                   aria-selected="true"><i class="fa fa-user fa-fw fa-lg"></i>Users</a>
-            </li>
+            <c:if test="${sessionScope.user.role.name == 'Admin'}">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#users" role="tab"
+                       aria-controls="home"
+                       aria-selected="true"><i class="fa fa-user fa-fw fa-lg"></i>Users</a>
+                </li>
+            </c:if>
+
+            <c:if test="${sessionScope.user.role.name == 'Admin' || sessionScope.user.role.name == 'Moderator'}">
             <li class="nav-item">
                 <a class="nav-link" id="discount-tab" data-toggle="tab" href="#products" role="tab"
                    aria-controls="contact" aria-selected="false">Products</a>
@@ -38,6 +51,7 @@
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
                    aria-controls="contact" aria-selected="false">Categories</a>
             </li>
+            </c:if>
 
         </ul>
         <div class="tab-content">
@@ -348,6 +362,6 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="zhenia/scripts.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>

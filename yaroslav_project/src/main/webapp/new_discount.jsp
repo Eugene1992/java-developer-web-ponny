@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="<c:url value="/styles.css"/>">
 </head>
 <body>
+<c:if test="${sessionScope.user.role.name == 'User'}">
+    <%
+        response.sendRedirect("/");
+    %>
+</c:if>
     <br>
     <div class="container">
         <div class="card">
@@ -16,7 +21,7 @@
             </h5>
             <br>
             <div class="card-body">
-                <form action="/discounts" method="post">
+                <form action="/admin/discounts" method="post">
                     <input name="id" type="hidden" value="${updDiscount.id}">
                     <div class="row">
                         <div class="form-group offset-lg-2 col-lg-4 offset-md-2 col-md-4">

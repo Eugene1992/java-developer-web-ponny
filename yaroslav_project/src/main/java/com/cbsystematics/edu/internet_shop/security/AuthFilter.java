@@ -22,12 +22,14 @@ public class AuthFilter implements Filter {
         boolean isLoginPageRequest = httpServletRequest.getRequestURI().equals("/login");
         boolean isRegistrationRequest = httpServletRequest.getRequestURI().equals("/registration");
 
+
         if (loggedIn || isStartPageRequest || isRegistrationRequest || isLoginPageRequest) {
             chain.doFilter(request, response);
         } else {
             httpServletResponse.sendRedirect("/");
         }
     }
+
 
     @Override
     public void destroy() {}

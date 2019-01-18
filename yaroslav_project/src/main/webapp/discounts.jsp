@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="<c:url value="/styles.css"/>">
 </head>
 <body>
+<c:if test="${sessionScope.user.role.name == 'User'}">
+    <%
+        response.sendRedirect("/");
+    %>
+</c:if>
     <br>
     <div class="container">
         <div class="row">
             <div class="card">
                 <h5 class="card-header">
                     Discounts
-                    <a href="/discounts?action=create">
+                    <a href="/admin/discounts?action=create">
                         <button type="button" class="btn btn-success btn-sm float-right">New Discount</button>
                     </a>
                 </h5>
@@ -55,14 +60,14 @@
                                     <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>
                                 </td>
                                 <td class="table-btn-col">
-                                    <a href="/discounts?action=update&id=${discount.id}">
+                                    <a href="/admin/discounts?action=update&id=${discount.id}">
                                         <button type="button" class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit fa-xs fa-lg"></i>
                                         </button>
                                     </a>
                                 </td>
                                 <td class="table-btn-col">
-                                    <a href="/discounts?action=delete&id=${discount.id}">
+                                    <a href="/admin/discounts?action=delete&id=${discount.id}">
                                         <button type="button" class="btn btn-danger btn-sm">
                                             <i class="fa fa-remove fa-xs fa-lg"></i>
                                         </button>

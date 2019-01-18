@@ -47,7 +47,7 @@ public class UserDAOImpl implements UserDAO {
         oldUser.setPassword(user.getPassword());
         oldUser.setUsername(user.getUsername());
         oldUser.setRole(user.getRole());
-        oldUser.setUserDetails(user.getUserDetails());
+        //oldUser.setUserDetails(user.getUserDetails());
         em.merge(oldUser);
 
         transaction.commit();

@@ -18,7 +18,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
-        <url-pattern>/products</url-pattern>
+        <url-pattern>/admin/products</url-pattern>
     </servlet-mapping>
 
 
@@ -28,7 +28,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DiscountServlet</servlet-name>
-        <url-pattern>/discounts</url-pattern>
+        <url-pattern>/admin/discounts</url-pattern>
     </servlet-mapping>
 
 
@@ -38,7 +38,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
-        <url-pattern>/users</url-pattern>
+        <url-pattern>/admin/users</url-pattern>
     </servlet-mapping>
 
 

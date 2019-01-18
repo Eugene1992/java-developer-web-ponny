@@ -46,4 +46,5 @@ public class User extends AbstractEntity {
         this.username = username;
         this.password = password;
     }
+
 }
