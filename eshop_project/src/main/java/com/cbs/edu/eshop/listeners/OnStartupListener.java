@@ -9,8 +9,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.util.Arrays;
 
+@WebListener
 public class OnStartupListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
