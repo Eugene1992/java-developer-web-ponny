@@ -3,18 +3,27 @@ package com.cbsystematics.edu.internet_shop.servlets;
 import com.cbsystematics.edu.internet_shop.entities.Role;
 import com.cbsystematics.edu.internet_shop.entities.User;
 import com.cbsystematics.edu.internet_shop.entities.UserDetails;
+import com.cbsystematics.edu.internet_shop.service.IProductService;
 import com.cbsystematics.edu.internet_shop.service.IUserService;
+import com.cbsystematics.edu.internet_shop.service.impl.ProductService;
 import com.cbsystematics.edu.internet_shop.service.impl.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(value = "/admin/users",
+        initParams = {
+                @WebInitParam(name = "userPaginationSize", value = "10")
+        })
 public class UserServlet extends HttpServlet {
-    private IUserService service = new UserService();
 
+    private IUserService service = new UserService();
+    private IProductService productService = new ProductService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,8 +53,8 @@ public class UserServlet extends HttpServlet {
             }
         }
 
-        req.setAttribute("users", service.getAllUsers());
-        req.getRequestDispatcher("/users.jsp").forward(req, resp);
+        req.setAttribute("users", service.getAll());
+        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 
 
@@ -75,7 +84,7 @@ public class UserServlet extends HttpServlet {
             service.createUser(user);
         }
 
-        req.setAttribute("users", service.getAllUsers());
-        req.getRequestDispatcher("/users.jsp").forward(req, resp);
+        req.setAttribute("users", service.getAll());
+        resp.sendRedirect("/admin");
     }
 }

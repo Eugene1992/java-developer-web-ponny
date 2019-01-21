@@ -10,7 +10,7 @@
 <body>
 <c:if test="${sessionScope.user.role.name == 'User' || sessionScope.user.role.name == 'Moderator'}">
     <%
-        response.sendRedirect("/");
+        response.sendRedirect("/home");
     %>
 </c:if>
     <br>

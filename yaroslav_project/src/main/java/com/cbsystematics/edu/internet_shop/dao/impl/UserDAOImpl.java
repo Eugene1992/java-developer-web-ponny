@@ -4,6 +4,7 @@ package com.cbsystematics.edu.internet_shop.dao.impl;
 import com.cbsystematics.edu.internet_shop.config.JPAUtil;
 import com.cbsystematics.edu.internet_shop.dao.UserDAO;
 import com.cbsystematics.edu.internet_shop.entities.User;
+import com.cbsystematics.edu.internet_shop.entities.UserDetails;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -47,7 +48,12 @@ public class UserDAOImpl implements UserDAO {
         oldUser.setPassword(user.getPassword());
         oldUser.setUsername(user.getUsername());
         oldUser.setRole(user.getRole());
-        //oldUser.setUserDetails(user.getUserDetails());
+        UserDetails userDetails = em.find(UserDetails.class, user.getId());
+        userDetails.setFirstName(user.getUserDetails().getFirstName());
+        userDetails.setLastName(user.getUserDetails().getLastName());
+        userDetails.setEmail(user.getUserDetails().getEmail());
+        userDetails.setPhone(user.getUserDetails().getPhone());
+        oldUser.setUserDetails(userDetails);
         em.merge(oldUser);
 
         transaction.commit();

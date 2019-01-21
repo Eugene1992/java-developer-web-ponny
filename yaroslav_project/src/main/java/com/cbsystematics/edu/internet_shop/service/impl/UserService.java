@@ -24,16 +24,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return userDAO.getAll();
     }
 
     @Override
     public User getUser(Integer id) {
-        User user = userDAO.get(id);
-        //UserDetails userDetails = userDetailsService.get(id);
-        //user.setUserDetails(userDetails);
-        return user;
+        return userDAO.get(id);
     }
 
     @Override
@@ -51,11 +48,6 @@ public class UserService implements IUserService {
     public User updateUser(User user) {
         Role userRole = roleService.getRoleByName(user.getRole().getName());
         user.setRole(userRole);
-        UserDetails userDetails = user.getUserDetails();
-        System.out.println(userDetails);
-        //UserDetails userDetails = userDetailsService.get(user.getId());
-        //user.setUserDetails(userDetails);
-        userDetailsService.update(userDetails);
         userDAO.update(user);
         return user;
     }

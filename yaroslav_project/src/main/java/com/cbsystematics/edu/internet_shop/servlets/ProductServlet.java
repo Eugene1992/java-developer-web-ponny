@@ -6,11 +6,17 @@ import com.cbsystematics.edu.internet_shop.service.IProductService;
 import com.cbsystematics.edu.internet_shop.service.impl.ProductService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(value = "/admin/products",
+        initParams = {
+                @WebInitParam(name = "productPaginationSize", value = "10")
+        })
 public class ProductServlet extends HttpServlet {
 
     private IProductService service = new ProductService();
@@ -44,7 +50,7 @@ public class ProductServlet extends HttpServlet {
         }
 
         req.setAttribute("products", service.getAll());
-        req.getRequestDispatcher("/products.jsp").forward(req, resp);
+        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 
 
@@ -54,20 +60,21 @@ public class ProductServlet extends HttpServlet {
         String description = req.getParameter("description");
         Integer price = Integer.valueOf(req.getParameter("price"));
         String category = req.getParameter("category");
+        String imgUrl = req.getParameter("imgUrl");
 
         int id;
         Product product;
         String idParam = req.getParameter("id");
         if (idParam != null && !idParam.isEmpty()) {
             id = Integer.parseInt(idParam);
-            product = new Product(id, title, description, category, price);
+            product = new Product(id, title, description, category, price, imgUrl);
             service.update(product);
         } else {
-            product = new Product(title, description, category, price);
+            product = new Product(title, description, category, price, imgUrl);
             service.create(product);
         }
 
         req.setAttribute("products", service.getAll());
-        req.getRequestDispatcher("/products.jsp").forward(req, resp);
+        resp.sendRedirect("/admin");
     }
 }

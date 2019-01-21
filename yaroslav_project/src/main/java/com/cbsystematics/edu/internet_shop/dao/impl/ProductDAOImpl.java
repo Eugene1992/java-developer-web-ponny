@@ -48,6 +48,7 @@ public class ProductDAOImpl implements ProductDAO {
             oldProduct.setDescription(product.getDescription());
             oldProduct.setPrice(product.getPrice());
             oldProduct.setCategory(product.getCategory());
+            oldProduct.setImgUrl(product.getImgUrl());
 
             em.merge(oldProduct);
 

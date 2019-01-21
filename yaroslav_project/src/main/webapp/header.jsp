@@ -2,7 +2,7 @@
 <%@ page import="com.cbsystematics.edu.internet_shop.entities.User" %>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/"><i class="fa fa-shopping-cart fa-fw fa-lg theme-blue"></i>eShop</a>
+        <a class="navbar-brand" href="/home"><i class="fa fa-shopping-cart fa-fw fa-lg theme-blue"></i>eShop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,12 +22,12 @@
                 </li>
                 <c:if test="${sessionScope.user.role.name == 'Admin'}">
                 <li class="nav-item">
-                    <a class="nav-link" href="admin">Admin</a>
+                    <a class="nav-link" href="/admin">Admin</a>
                 </li>
                 </c:if>
                 <c:if test="${sessionScope.user.role.name == 'Moderator'}">
                     <li class="nav-item">
-                        <a class="nav-link" href="admin">Moderator</a>
+                        <a class="nav-link" href="/admin">Moderator</a>
                     </li>
                 </c:if>
 
@@ -103,6 +103,13 @@
                         <i class="fa fa-user fa-fw fa-lg"></i>Sign In
                     </button>
                 </div>
+            </c:if>
+            <c:if test="${sessionScope.user != null}">
+            <a href="/logout">
+                <button class="btn btn-warning" type="button" data-toggle="modal">
+                    <i class="fa fa-user fa-fw fa-lg"></i>Sign Out
+                </button>
+            </a>
             </c:if>
         </div>
     </nav>
