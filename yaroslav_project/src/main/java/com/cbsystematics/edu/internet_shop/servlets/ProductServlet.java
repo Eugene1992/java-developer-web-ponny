@@ -6,13 +6,17 @@ import com.cbsystematics.edu.internet_shop.service.IProductService;
 import com.cbsystematics.edu.internet_shop.service.impl.ProductService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/admin/products")
+@WebServlet(value = "/admin/products",
+        initParams = {
+                @WebInitParam(name = "productPaginationSize", value = "10")
+        })
 public class ProductServlet extends HttpServlet {
 
     private IProductService service = new ProductService();
@@ -46,7 +50,7 @@ public class ProductServlet extends HttpServlet {
         }
 
         req.setAttribute("products", service.getAll());
-        req.getRequestDispatcher("/products.jsp").forward(req, resp);
+        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 
 
@@ -71,6 +75,6 @@ public class ProductServlet extends HttpServlet {
         }
 
         req.setAttribute("products", service.getAll());
-        req.getRequestDispatcher("/products.jsp").forward(req, resp);
+        resp.sendRedirect("/admin");
     }
 }

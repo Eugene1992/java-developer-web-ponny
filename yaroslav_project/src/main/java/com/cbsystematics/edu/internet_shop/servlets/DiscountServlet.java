@@ -6,13 +6,17 @@ import com.cbsystematics.edu.internet_shop.service.impl.DiscountService;
 import com.cbsystematics.edu.internet_shop.service.IDiscountService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/admin/discounts")
+@WebServlet(value = "/admin/discounts",
+        initParams = {
+                @WebInitParam(name = "discountPaginationSize", value = "10")
+        })
 public class DiscountServlet extends HttpServlet {
 
     private IDiscountService service = new DiscountService();
@@ -47,7 +51,7 @@ public class DiscountServlet extends HttpServlet {
         }
 
         req.setAttribute("discounts", service.getAll());
-        req.getRequestDispatcher("/discounts.jsp").forward(req, resp);
+        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 
 
@@ -69,6 +73,6 @@ public class DiscountServlet extends HttpServlet {
         }
 
         req.setAttribute("discounts", service.getAll());
-        req.getRequestDispatcher("/discounts.jsp").forward(req, resp);
+        resp.sendRedirect("/admin");
     }
 }

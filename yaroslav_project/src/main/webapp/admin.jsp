@@ -75,6 +75,8 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th>Role</th>
+                        <th>Username</th>
                         <th>Firstname</th>
                         <th>Lastname</th>
                         <th>Email</th>
@@ -84,57 +86,42 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-info btn-sm"><i
-                                    class="fa fa-info-circle fa-xs fa-lg"></i></button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-remove fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-info btn-sm"><i
-                                    class="fa fa-info-circle fa-xs fa-lg"></i></button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-remove fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-info btn-sm"><i
-                                    class="fa fa-info-circle fa-xs fa-lg"></i></button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-remove fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <c:forEach var = "user" items="${users}">
+                        <tr>
+                            <td>
+                                    ${user.role.name}
+                            </td>
+                            <td>
+                                    ${user.username}
+                            </td>
+                            <td>
+                                    ${user.userDetails.firstName}
+                            </td>
+                            <td>
+                                    ${user.userDetails.lastName}
+                            </td>
+                            <td>
+                                    ${user.userDetails.email}
+                            </td>
+                            <td class="table-btn-col">
+                                <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>
+                            </td>
+                            <td class="table-btn-col">
+                                <a href="/admin/users?action=update&id=${user.id}">
+                                    <button type="button" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-edit fa-xs fa-lg"></i>
+                                    </button>
+                                </a>
+                            </td>
+                            <td class="table-btn-col">
+                                <a href="/admin/users?action=delete&id=${user.id}">
+                                    <button type="button" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-remove fa-xs fa-lg"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
                 <div class="row">
@@ -168,6 +155,10 @@
                 </div>
             </div>
             </c:if>
+
+
+
+
             <!-- Discounts tab content-->
             <div class="tab-pane fade" id="discounts">
                 <div class="row">
@@ -194,8 +185,8 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <%--<th>Start Date</th>--%>
+                        <%--<th>End Date</th>--%>
                         <th>Amount(%)</th>
                         <th>Info</th>
                         <th>Update</th>
@@ -203,24 +194,33 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>NY</td>
-                        <td>28.12.2019</td>
-                        <td>31.12.2019</td>
-                        <td>12</td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-info btn-sm"><i
-                                    class="fa fa-info-circle fa-xs fa-lg"></i></button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-remove fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <c:forEach var = "discount" items="${discounts}">
+                        <tr>
+                            <td>
+                                    ${discount.name}
+                            </td>
+                            <td>
+                                    ${discount.amount}
+                            </td>
+                            <td class="table-btn-col">
+                                <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>
+                            </td>
+                            <td class="table-btn-col">
+                                <a href="/admin/discounts?action=update&id=${discount.id}">
+                                    <button type="button" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-edit fa-xs fa-lg"></i>
+                                    </button>
+                                </a>
+                            </td>
+                            <td class="table-btn-col">
+                                <a href="/admin/discounts?action=delete&id=${discount.id}">
+                                    <button type="button" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-remove fa-xs fa-lg"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
                 <div class="row">
@@ -252,8 +252,11 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
+
+
+
+
             <!-- Products tab content-->
             <div class="tab-pane fade" id="products">
                 <div class="row">
@@ -280,36 +283,49 @@
                     <tr>
                         <th>Title</th>
                         <th>Category</th>
+                        <th>Description</th>
                         <th>Price</th>
-                        <th>Created</th>
-                        <th>Modified</th>
-                        <th>Is active</th>
+                        <%--<th>Created</th>--%>
+                        <%--<th>Modified</th>--%>
                         <th>Info</th>
                         <th>Update</th>
                         <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Milk</td>
-                        <td>Eat</td>
-                        <td>31$</td>
-                        <td>14.12.2018</td>
-                        <td>18.12.2018</td>
-                        <td>True</td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-info btn-sm"><i
-                                    class="fa fa-info-circle fa-xs fa-lg"></i></button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                        <td class="table-btn-col">
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-remove fa-xs fa-lg"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <c:forEach var = "product" items="${products}">
+                        <tr>
+                            <td>
+                                    ${product.title}
+                            </td>
+                            <td>
+                                    ${product.category}
+                            </td>
+                            <td>
+                                    ${product.description}
+                            </td>
+                            <td>
+                                    ${product.price}
+                            </td>
+                            <td class="table-btn-col">
+                                <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>
+                            </td>
+                            <td class="table-btn-col">
+                                <a href="/admin/products?action=update&id=${product.id}">
+                                    <button type="button" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-edit fa-xs fa-lg"></i>
+                                    </button>
+                                </a>
+                            </td>
+                            <td class="table-btn-col">
+                                <a href="/admin/products?action=delete&id=${product.id}">
+                                    <button type="button" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-remove fa-xs fa-lg"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
                 <div class="row">

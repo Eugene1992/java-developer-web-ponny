@@ -15,7 +15,7 @@ public interface IUserService {
 
     User getUser(Integer id);
 
-    List<User> getAllUsers();
+    List<User> getAll();
 
     void deleteUser(Integer id);
 
