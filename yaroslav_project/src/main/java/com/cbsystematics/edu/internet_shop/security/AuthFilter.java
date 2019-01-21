@@ -1,11 +1,13 @@
 package com.cbsystematics.edu.internet_shop.security;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@WebFilter("/*")
 public class AuthFilter implements Filter {
 
     @Override
@@ -18,7 +20,7 @@ public class AuthFilter implements Filter {
 
         HttpSession session = httpServletRequest.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("user") != null;
-        boolean isStartPageRequest = httpServletRequest.getRequestURI().equals("/");
+        boolean isStartPageRequest = httpServletRequest.getRequestURI().equals("/home");
         boolean isLoginPageRequest = httpServletRequest.getRequestURI().equals("/login");
         boolean isRegistrationRequest = httpServletRequest.getRequestURI().equals("/registration");
 
@@ -26,7 +28,7 @@ public class AuthFilter implements Filter {
         if (loggedIn || isStartPageRequest || isRegistrationRequest || isLoginPageRequest) {
             chain.doFilter(request, response);
         } else {
-            httpServletResponse.sendRedirect("/");
+            httpServletResponse.sendRedirect("/home");
         }
     }
 

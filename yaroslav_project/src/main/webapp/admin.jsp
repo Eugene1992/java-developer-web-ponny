@@ -18,7 +18,7 @@
 <body>
 <c:if test="${sessionScope.user.role.name == 'User'}">
     <%
-        response.sendRedirect("/");
+        response.sendRedirect("/home");
     %>
 </c:if>
 
@@ -26,9 +26,6 @@
 
 <main>
     <div class="container">
-        <br>
-        <br>
-        <br>
         <ul class="nav nav-tabs">
             <c:if test="${sessionScope.user.role.name == 'Admin'}">
                 <li class="nav-item">
@@ -38,7 +35,6 @@
                 </li>
             </c:if>
 
-            <c:if test="${sessionScope.user.role.name == 'Admin' || sessionScope.user.role.name == 'Moderator'}">
             <li class="nav-item">
                 <a class="nav-link" id="discount-tab" data-toggle="tab" href="#products" role="tab"
                    aria-controls="contact" aria-selected="false">Products</a>
@@ -51,10 +47,10 @@
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
                    aria-controls="contact" aria-selected="false">Categories</a>
             </li>
-            </c:if>
 
         </ul>
         <div class="tab-content">
+            <c:if test="${sessionScope.user.role.name == 'Admin'}">
             <!-- Users tab content-->
             <div class="tab-pane fade show active" id="users">
                 <div class="row">
@@ -171,6 +167,7 @@
                     </div>
                 </div>
             </div>
+            </c:if>
             <!-- Discounts tab content-->
             <div class="tab-pane fade" id="discounts">
                 <div class="row">

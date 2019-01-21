@@ -26,6 +26,9 @@ public class Product extends AbstractEntity {
     @Column(name = "price", nullable = false)
     private Integer price;
 
+    @Column(name = "img_url", nullable = false)
+    private String imgUrl;
+
 
 
     @ManyToMany
@@ -44,18 +47,20 @@ public class Product extends AbstractEntity {
     private Set<Discount> discounts;
 
 
-    public Product(Integer id, String title, String description, String category, Integer price) {
+    public Product(String title, String description, String category, Integer price, String imgUrl) {
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.imgUrl = imgUrl;
+    }
+
+    public Product(Integer id, String title, String description, String category, Integer price, String imgUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
         this.price = price;
-    }
-
-    public Product(String title, String description, String category, Integer price) {
-        this.title = title;
-        this.description = description;
-        this.category = category;
-        this.price = price;
+        this.imgUrl = imgUrl;
     }
 }

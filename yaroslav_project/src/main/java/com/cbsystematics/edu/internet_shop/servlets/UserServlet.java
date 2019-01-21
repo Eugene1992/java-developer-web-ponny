@@ -7,14 +7,16 @@ import com.cbsystematics.edu.internet_shop.service.IUserService;
 import com.cbsystematics.edu.internet_shop.service.impl.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/admin/users")
 public class UserServlet extends HttpServlet {
-    private IUserService service = new UserService();
 
+    private IUserService service = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

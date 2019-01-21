@@ -10,7 +10,7 @@
 <body>
 <c:if test="${sessionScope.user.role.name == 'User'}">
     <%
-        response.sendRedirect("/");
+        response.sendRedirect("/home");
     %>
 </c:if>
     <br>
@@ -41,6 +41,12 @@
                                 <option <c:if test="${updProduct.category == 'Laptops'}">selected</c:if>>Laptops</option>
                                 <option <c:if test="${updProduct.category == 'Tablets'}">selected</c:if>>Tablets</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group offset-lg-2 col-lg-8 offset-md-2 col-md-4">
+                            <label for="imgUrl">ImageURL:</label>
+                            <input name="imgUrl" type="text" class="form-control" id="imgUrl" value="${updProduct.imgUrl}">
                         </div>
                     </div>
                     <div class="row">
