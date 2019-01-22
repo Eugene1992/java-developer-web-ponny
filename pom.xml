@@ -20,6 +20,8 @@
         <module>ingwar_project</module>
         <module>eshop_project</module>
         <module>spring</module>
+        <module>spring-xml</module>
+        <module>spring-annotations</module>
     </modules>
     <packaging>pom</packaging>
 

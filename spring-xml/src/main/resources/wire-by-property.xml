@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="duke" class="com.cbs.edu.spring_xml.Juggler">
+        <constructor-arg value="10"/>
+    </bean>
+
+    <bean id="poem" class="com.cbs.edu.spring_xml.Sonnet29"/>
+
+    <bean id="poeticDuke" class="com.cbs.edu.spring_xml.PoeticJuggler">
+        <constructor-arg value="10"/>
+        <constructor-arg ref="poem"/>
+    </bean>
+
+    <bean id="saxophone" class="com.cbs.edu.spring_xml.Saxophone"/>
+
+    <bean id="kenny"
+          class="com.cbs.edu.spring_xml.Instrumentalist"
+          p:song="Jingle Bells"
+          p:instrument-ref="saxophone"
+    />
+
+    <!-- ================================================================================================================= -->
+    <!-- =  singleton       =   В каждом контейнере Spring может быть создан только один компонент (по умолчанию)        = -->
+    <!-- ================================================================================================================= -->
+    <!-- =  prototype       =   Позволяет создавать произвольное количество компонентов (по одному на каждое обращение)  = -->
+    <!-- ================================================================================================================= -->
+    <!-- =  request         =   Область действия компонента ограничивается HTTP-запросом.                                = -->
+    <!-- ================================================================================================================= -->
+    <!-- =  session         =   Область действия компонента ограничивается HTTP-сеансом.                                 = -->
+    <!-- ================================================================================================================= -->
+    <!-- =  global-session  =   Область действия компонента ограничивается глобальным HTTP-сеансом.                      = -->
+    <!-- ================================================================================================================= -->
+
+    <bean id="ticket" class="com.cbs.edu.spring_xml.Ticket" scope="prototype"/>
+
+    <bean
+            id="auditorium"
+            class="com.cbs.edu.spring_xml.Auditorium"
+            init-method="turnOnLights"
+            destroy-method="turnOffLights"
+    />
+
+    <bean id="stage"
+          class="com.cbs.edu.spring_xml.Stage"
+          factory-method="getInstance"
+    />
+</beans>
