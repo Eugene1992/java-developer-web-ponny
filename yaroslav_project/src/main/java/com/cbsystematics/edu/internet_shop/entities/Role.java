@@ -20,7 +20,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "eshop_roles")
+@Table(name = "shop_roles")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

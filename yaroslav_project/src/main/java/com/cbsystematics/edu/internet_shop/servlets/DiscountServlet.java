@@ -2,8 +2,8 @@ package com.cbsystematics.edu.internet_shop.servlets;
 
 
 import com.cbsystematics.edu.internet_shop.entities.Discount;
-import com.cbsystematics.edu.internet_shop.service.impl.DiscountService;
 import com.cbsystematics.edu.internet_shop.service.IDiscountService;
+import com.cbsystematics.edu.internet_shop.service.impl.DiscountService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -19,8 +19,11 @@ import java.io.IOException;
         })
 public class DiscountServlet extends HttpServlet {
 
-    private IDiscountService service = new DiscountService();
+    private IDiscountService discountService;
 
+    public DiscountServlet() {
+        this.discountService = new DiscountService();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,14 +37,14 @@ public class DiscountServlet extends HttpServlet {
                 case "delete": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        service.delete(Integer.parseInt(idParam));
+                        discountService.delete(Integer.parseInt(idParam));
                     }
                     break;
                 }
                 case "update": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        Discount updDiscount = service.get(Integer.parseInt(idParam));
+                        Discount updDiscount = discountService.get(Integer.parseInt(idParam));
                         req.setAttribute("updDiscount", updDiscount);
                         req.getRequestDispatcher("/new_discount.jsp").forward(req, resp);
                     }
@@ -49,8 +52,6 @@ public class DiscountServlet extends HttpServlet {
                 }
             }
         }
-
-        req.setAttribute("discounts", service.getAll());
         req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 
@@ -62,17 +63,17 @@ public class DiscountServlet extends HttpServlet {
 
         int id;
         Discount discount;
-        String idParam = req.getParameter("id");
+        String idParam = req.getParameter("discount_id");
         if (idParam != null && !idParam.isEmpty()) {
             id = Integer.parseInt(idParam);
             discount = new Discount(id, name, amount);
-            service.update(discount);
+            discountService.update(discount);
         } else {
             discount = new Discount(name, amount);
-            service.create(discount);
+            discountService.create(discount);
         }
 
-        req.setAttribute("discounts", service.getAll());
-        resp.sendRedirect("/admin");
+        req.setAttribute("discounts", discountService.getAll());
+        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 }

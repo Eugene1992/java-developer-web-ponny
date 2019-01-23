@@ -54,25 +54,13 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>IPhone X 256 GB</td>
+                            <c:forEach var = "product" items="${products}">
+                            <td>${product.title}</td>
                             <td class="shopping-cart-item-control"><a href="" class="shopping-cart-link"><i
                                     class="fa fa-plus fa-fw"></i></a> 1 <a href="" class="shopping-cart-link"><i
                                     class="fa fa-minus fa-fw"></i></a></td>
-                            <td class="shopping-cart-item-control">16999 UAH</td>
-                        </tr>
-                        <tr>
-                            <td>IPhone X 256 GB</td>
-                            <td class="shopping-cart-item-control"><a href="" class="shopping-cart-link"><i
-                                    class="fa fa-plus fa-fw"></i></a> 2 <a href="" class="shopping-cart-link"><i
-                                    class="fa fa-minus fa-fw"></i></a></td>
-                            <td class="shopping-cart-item-control">16999 UAH</td>
-                        </tr>
-                        <tr>
-                            <td>IPhone X 256 GB</td>
-                            <td class="shopping-cart-item-control"><a href="" class="shopping-cart-link"><i
-                                    class="fa fa-plus fa-fw"></i></a> 1 <a href="" class="shopping-cart-link"><i
-                                    class="fa fa-minus fa-fw"></i></a></td>
-                            <td class="shopping-cart-item-control">16999 UAH</td>
+                            <td class="shopping-cart-item-control">${product.price} UAH</td>
+                            </c:forEach>
                         </tr>
                         <tr>
                             <td></td>

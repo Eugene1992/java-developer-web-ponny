@@ -19,7 +19,11 @@ import java.io.IOException;
         })
 public class ProductServlet extends HttpServlet {
 
-    private IProductService service = new ProductService();
+    private IProductService productService;
+
+    public ProductServlet() {
+        this.productService = new ProductService();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,14 +37,14 @@ public class ProductServlet extends HttpServlet {
                 case "delete": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        service.delete(Integer.parseInt(idParam));
+                        productService.delete(Integer.parseInt(idParam));
                     }
                     break;
                 }
                 case "update": {
                     String idParam = req.getParameter("id");
                     if(idParam != null && !idParam.isEmpty()) {
-                        Product updProduct = service.get(Integer.parseInt(idParam));
+                        Product updProduct = productService.get(Integer.parseInt(idParam));
                         req.setAttribute("updProduct", updProduct);
                         req.getRequestDispatcher("/new_product.jsp").forward(req, resp);
                     }
@@ -48,8 +52,6 @@ public class ProductServlet extends HttpServlet {
                 }
             }
         }
-
-        req.setAttribute("products", service.getAll());
         req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 
@@ -64,17 +66,17 @@ public class ProductServlet extends HttpServlet {
 
         int id;
         Product product;
-        String idParam = req.getParameter("id");
+        String idParam = req.getParameter("product_id");
         if (idParam != null && !idParam.isEmpty()) {
             id = Integer.parseInt(idParam);
             product = new Product(id, title, description, category, price, imgUrl);
-            service.update(product);
+            productService.update(product);
         } else {
             product = new Product(title, description, category, price, imgUrl);
-            service.create(product);
+            productService.create(product);
         }
 
-        req.setAttribute("products", service.getAll());
-        resp.sendRedirect("/admin");
+        req.setAttribute("products", productService.getAll());
+        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 }

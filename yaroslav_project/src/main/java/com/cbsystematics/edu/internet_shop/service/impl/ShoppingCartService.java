@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartService implements IShoppingCartService {
@@ -29,7 +30,9 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public List<Product> getAllCartProducts() {
-        return null;
+    public List<Product> getAllCartProducts(HttpServletRequest request) {
+        List<Product> products = new ArrayList<>();
+
+        return products;
     }
 }

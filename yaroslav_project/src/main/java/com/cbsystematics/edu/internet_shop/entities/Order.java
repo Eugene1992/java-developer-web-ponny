@@ -9,7 +9,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "eshop_orders")
+@Table(name = "shop_orders")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -20,7 +20,7 @@ public class Order extends AbstractEntity {
 
 
     @ManyToMany
-    @JoinTable(name = "eshop_orders_products",
+    @JoinTable(name = "shop_orders_products",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )

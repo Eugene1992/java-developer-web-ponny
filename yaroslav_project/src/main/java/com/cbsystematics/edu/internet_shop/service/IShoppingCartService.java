@@ -12,5 +12,5 @@ public interface IShoppingCartService {
 
     void addToCart(int productId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
-    List<Product> getAllCartProducts();
+    List<Product> getAllCartProducts(HttpServletRequest request);
 }

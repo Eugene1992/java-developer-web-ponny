@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "eshop_users")
+@Table(name = "shop_users")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

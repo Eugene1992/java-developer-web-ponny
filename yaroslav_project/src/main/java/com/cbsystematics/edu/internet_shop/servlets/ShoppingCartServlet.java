@@ -31,7 +31,7 @@ public class ShoppingCartServlet extends HttpServlet {
             shoppingCartService.addToCart(productId, req, resp);
         }
 
-        List<Product> allCartProducts = shoppingCartService.getAllCartProducts();
+        List<Product> allCartProducts = shoppingCartService.getAllCartProducts(req);
         req.setAttribute("shopping_cart_products", allCartProducts);
 
         req.getRequestDispatcher("/index.jsp").forward(req, resp);

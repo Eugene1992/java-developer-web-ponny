@@ -15,10 +15,4 @@ public class NewProductServlet extends HttpServlet {
         req.getRequestDispatcher("/new_product.jsp").forward(req, resp);
     }
 
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/admin.jsp").forward(req, resp);
-    }
-
 }

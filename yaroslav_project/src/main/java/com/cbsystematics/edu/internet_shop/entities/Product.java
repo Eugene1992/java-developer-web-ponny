@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "eshop_products")
+@Table(name = "shop_products")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -32,7 +32,7 @@ public class Product extends AbstractEntity {
 
 
     @ManyToMany
-    @JoinTable(name = "eshop_products_categories",
+    @JoinTable(name = "shop_products_categories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
@@ -40,7 +40,7 @@ public class Product extends AbstractEntity {
 
 
     @ManyToMany
-    @JoinTable(name = "eshop_products_discounts",
+    @JoinTable(name = "shop_products_discounts",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "discount_id")
     )
@@ -62,5 +62,18 @@ public class Product extends AbstractEntity {
         this.category = category;
         this.price = price;
         this.imgUrl = imgUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "title='" + title + '\''
+                + ", description='" + description + '\''
+                + ", category='" + category + '\''
+                + ", price=" + price
+                + ", imgUrl='" + imgUrl + '\''
+                + ", id=" + id
+                + ", version=" + version
+                + '}';
     }
 }

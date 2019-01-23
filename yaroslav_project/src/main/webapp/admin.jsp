@@ -61,6 +61,7 @@
                             </a>
                         </div>
                     </div>
+
                     <div class="col-lg-4">
                         <div class="input-group margin-top-bottom-15">
                             <input type="text" class="form-control" placeholder=" Search by username"
@@ -107,14 +108,14 @@
                                 <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>
                             </td>
                             <td class="table-btn-col">
-                                <a href="/admin/users?action=update&id=${user.id}">
+                                <a href="/admin?action=updateUser&id=${user.id}">
                                     <button type="button" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit fa-xs fa-lg"></i>
                                     </button>
                                 </a>
                             </td>
                             <td class="table-btn-col">
-                                <a href="/admin/users?action=delete&id=${user.id}">
+                                <a href="/admin?action=deleteUser&id=${user.id}">
                                     <button type="button" class="btn btn-danger btn-sm">
                                         <i class="fa fa-remove fa-xs fa-lg"></i>
                                     </button>
@@ -206,14 +207,14 @@
                                 <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>
                             </td>
                             <td class="table-btn-col">
-                                <a href="/admin/discounts?action=update&id=${discount.id}">
+                                <a href="/admin?action=updateDiscount&id=${discount.id}">
                                     <button type="button" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit fa-xs fa-lg"></i>
                                     </button>
                                 </a>
                             </td>
                             <td class="table-btn-col">
-                                <a href="/admin/discounts?action=delete&id=${discount.id}">
+                                <a href="/admin?action=deleteDiscount&id=${discount.id}">
                                     <button type="button" class="btn btn-danger btn-sm">
                                         <i class="fa fa-remove fa-xs fa-lg"></i>
                                     </button>
@@ -311,14 +312,14 @@
                                 <button type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle fa-xs fa-lg"></i></button>
                             </td>
                             <td class="table-btn-col">
-                                <a href="/admin/products?action=update&id=${product.id}">
+                                <a href="/admin?action=updateProduct&id=${product.id}">
                                     <button type="button" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit fa-xs fa-lg"></i>
                                     </button>
                                 </a>
                             </td>
                             <td class="table-btn-col">
-                                <a href="/admin/products?action=delete&id=${product.id}">
+                                <a href="/admin?action=deleteProduct&id=${product.id}">
                                     <button type="button" class="btn btn-danger btn-sm">
                                         <i class="fa fa-remove fa-xs fa-lg"></i>
                                     </button>
@@ -359,7 +360,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 

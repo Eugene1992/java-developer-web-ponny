@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import java.util.Collection;
 
 @Entity
-@Table(name = "eshop_categories")
+@Table(name = "shop_categories")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

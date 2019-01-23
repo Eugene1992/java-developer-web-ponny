@@ -21,8 +21,8 @@
             </h5>
             <br>
             <div class="card-body">
-                <form action="/admin/products" method="post">
-                    <input name="id" type="hidden" value="${updProduct.id}">
+                <form action="/admin" method="post">
+                    <input name="product_id" type="hidden" value="${updProduct.id}">
                     <div class="row">
                         <div class="form-group offset-lg-2 col-lg-4 offset-md-2 col-md-4">
                             <label for="title">Title:</label>
