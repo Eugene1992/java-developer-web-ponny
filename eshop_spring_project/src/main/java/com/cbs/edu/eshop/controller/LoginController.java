@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
-
+/*
     @Autowired
     private UserService userService;
 
@@ -23,5 +23,5 @@ public class LoginController {
         modelAndView.addObject("username", "Yevhenii");
 
         return modelAndView;
-    }
+    }*/
 }

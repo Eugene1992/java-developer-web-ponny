@@ -42,4 +42,12 @@ public class UserRepository implements IUserRepository {
     public List<User> getAll() {
         return entityManager.createQuery("select u from User u").getResultList();
     }
+
+    @Override
+    public User getByUsername(String username) {
+        return (User) entityManager
+                .createQuery("select u from User u where u.username = :username")
+                .setParameter("username", username)
+                .getSingleResult();
+    }
 }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--<%@ page import="com.cbs.edu.eshop.entity.User" %>--%>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -21,15 +22,13 @@
                     <a class="nav-link" href="#">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/products?action=create">Admin</a>
+                    <a class="nav-link" href="/admin">Admin</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <%--                <c:if test="${sessionScope.user != null}">
-                                    <li>Welcome, <%=((User)request.getSession().getAttribute("user")).getUsername()%></li>
-                                </c:if>--%>
-                <li>Welcome, ${username}</li>
-
+            <ul class="nav navbar-nav navbar-right" style="color: white">
+                <sec:authorize access="isAuthenticated()">
+                    <li>Welcome, <sec:authentication property="principal.username"/> <sec:authentication property="principal.authorities"/></li>
+                </sec:authorize>
             </ul>
             <div class="dropdown margin-left-10">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -86,7 +85,7 @@
                 </div>
             </div>
 
-            <c:if test="${sessionScope.user == null}">
+            <sec:authorize access="isAnonymous()">
                 <div class="dropdown margin-left-10">
                     <a href="/registration">
                         <button class="btn btn-success" type="button">
@@ -97,7 +96,14 @@
                         <i class="fa fa-user fa-fw fa-lg"></i>Sign In
                     </button>
                 </div>
-            </c:if>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+                <a href="/logout">
+                    <button class="btn btn-danger" type="button">
+                        <i class="fa fa-user fa-fw fa-lg"></i>Logout
+                    </button>
+                </a>
+            </sec:authorize>
         </div>
     </nav>
     <div class="collapse" id="navbarToggleExternalContent">
@@ -157,7 +163,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form class="form" role="form" method="POST" action="/login">
+                    <form class="form" role="form" method="POST" action="/home">
                         <div class="form-group">
                             <input name="username" placeholder="username" class="form-control form-control-sm"
                                    type="text" required="">
