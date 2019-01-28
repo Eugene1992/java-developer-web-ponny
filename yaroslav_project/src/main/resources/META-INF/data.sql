@@ -19,3 +19,15 @@ INSERT INTO shop_discounts(id, version, amount, name) VALUES (nextval('shop_disc
 
 INSERT INTO shop_products(id, version,img_url, category, description, price, title) VALUES (nextval('shop_products_id_seq'), 0, 'https://clipart.info/images/ccovers/1505918647iphone-x-png.png', 'Phones', 'Super super super phone', 10000, 'IPhone10');
 INSERT INTO shop_products(id, version, img_url, category, description, price, title) VALUES (nextval('shop_products_id_seq'), 0, 'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6201/6201041_sd.jpg;maxHeight=640;maxWidth=550', 'Laptops', 'The best laptop in the world!!!', 22000, 'SomeLaptop');
+
+
+INSERT INTO shop_categories(id, version, description, name) VALUES (nextval('shop_categories_id_seq'), 0, 'for phones', 'Phones');
+INSERT INTO shop_categories(id, version, description, name) VALUES (nextval('shop_categories_id_seq'), 0, 'for laptops', 'Laptops');
+INSERT INTO shop_categories(id, version, description, name) VALUES (nextval('shop_categories_id_seq'), 0, 'for apple devices', 'Apple');
+INSERT INTO shop_categories(id, version, description, name) VALUES (nextval('shop_categories_id_seq'), 0, 'for samsung devices', 'Samsung');
+
+
+INSERT INTO shop_products_categories(product_id, category_id) VALUES (1, 1);
+INSERT INTO shop_products_categories(product_id, category_id) VALUES (1, 3);
+INSERT INTO shop_products_categories(product_id, category_id) VALUES (2, 2);
+INSERT INTO shop_products_categories(product_id, category_id) VALUES (2, 4);
